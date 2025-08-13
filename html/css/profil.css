@@ -1,0 +1,28 @@
+.profile-header {
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+  }
+  .card {
+    background-color: rgba(255,255,255,0.1);
+    border: none;
+    margin-bottom: 20px;
+  }
+  .card-header {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    font-weight: bold;
+  }
+  .list-group-item {
+    background-color: rgba(255,255,255,0.05);
+    color: white;
+    border-color: rgba(255,255,255,0.1);
+  }

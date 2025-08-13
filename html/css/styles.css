@@ -1,0 +1,262 @@
+/* Pour les navigateurs basés sur WebKit */
+::-webkit-scrollbar {
+  width: 0px; /* Largeur de la scrollbar */
+  height: 0px; /* Hauteur de la scrollbar pour un scroll horizontal */
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; /* Couleur du curseur (partie cliquable de la scrollbar) */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Couleur de la piste de la scrollbar */
+}
+
+body {
+  all: unset;
+  display: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#tablette {
+  z-index: 1;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.98em;
+  background: rgb(26, 27, 31);
+  border-radius: 50px;
+  margin: auto;
+  margin-top: 80px;
+  width: 1200px;
+  height: 800px;
+  box-shadow: rgba(0, 0, 0, 0.70) 0px 39px 58px, rgba(0, 0, 0, 0.70) 0px 39px 58px;
+}
+.tablette_img {
+  z-index: 9;
+  position: absolute;
+  width: 1200px;
+  height: 800px;
+  margin: auto;
+}
+.status-bar {
+  z-index: 8;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  top: 38px;
+  padding: 6px;
+  padding-left: 50px;
+  padding-right: 50px;
+  position: relative;
+  width: 98%;
+  height: 30px;
+  margin-left: 8px;
+  background-color: rgb(71, 71, 71);
+}
+#content {
+  float: left;
+  z-index: 10;
+  position: relative;
+  margin: 50px;
+  margin-right: 1vh;
+  width: 97vh;
+  height: 63vh;
+  color: whitesmoke;
+  scrollbar-width: none; /* Masquer la scrollbar */
+  overflow-y: auto;
+}
+#btn-right {
+  float: left;
+  z-index: 10;
+  position: relative;
+  margin: 0px;
+  margin-top: 50px;
+  width: 4vh;
+  height: 63vh;
+  color: whitesmoke;
+  scrollbar-width: none; /* Masquer la scrollbar */
+  overflow-y: auto;
+}
+#btn-home {
+  margin-top: 30vh;
+  padding: 12.5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  color: rgb(180, 180, 180);
+}
+#btn-home:hover {
+  transform: translateY(2px);
+  background: rgba(255,255,255,0.2);
+}
+
+/* Pour les icons */
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 20px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+.app-icon {
+  width: 95px;
+  height: 95px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.app-icon:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+.app-icon i {
+  font-size: 30px;
+  margin-bottom: 5px;
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.icon-police i {
+  font-size: 30px;
+  margin-bottom: 5px;
+  background: linear-gradient(45deg, #6b8eff, #5770fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.icon-mecano i {
+  font-size: 30px;
+  margin-bottom: 5px;
+  background: linear-gradient(45deg, #fffd6b, #fbfcda);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.icon-ambulance i {
+  font-size: 30px;
+  margin-bottom: 5px;
+  background: linear-gradient(45deg, #126900, #00cf23);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.app-name {
+  font-size: 12px;
+  text-align: center;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.p-wait {
+  margin-top: 25vh;
+  margin-left: 45vh;
+  height: 10vh;
+  width: 10vh;
+}
+
+.vehicle-card {
+  margin-left: 20vh;
+  margin-right: 20vh;
+  position: relative;
+  color: white;
+}
+.my_car-vehicle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 10px;
+}
+.cadre-interne {
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-top: 2vh;
+  margin-bottom: 4vh;
+}
+table {
+  all: unset;
+}
+
+#open_page_formation, #police_codepenal, #police_evolution, #police_story {
+  display: none;
+}
+
+.embed {
+  width: 100%;
+  height: 100%;
+  
+  scrollbar-width: none; /* Masquer la scrollbar */
+  overflow-y: auto;
+}
+
+/* ========= Ici adaptation des écrans ================ */
+/* Styles pour écrans >= 1920px */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  #content {
+    width: 101.4vh;
+    height: 63vh;
+  }
+  #btn-right {
+    margin: 0px;
+    margin-top: 50px;
+    width: 3.2vh;
+    height: 63vh;
+  }
+  #btn-home {
+    margin-top: 28vh;
+    padding: 7px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Styles pour écrans >= 2560px */
+@media (min-width: 2560px) and (max-width: 3039px) {
+  #content {
+    width: 76.0vh;
+    height: 46vh;
+  }
+
+  #btn-right {
+    margin: 0px;
+    margin-top: 50px;
+    width: 2.5vh;
+    height: 46vh;
+  }
+
+  #btn-home {
+    margin-top: 21vh;
+    padding: 7px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Styles pour écrans >= 3040px */
+@media (min-width: 3040px) {
+  #content {
+    width: 50.5vh;
+    height: 31vh;
+  }
+
+
+  #btn-right {
+    margin: 0px;
+    margin-top: 50px;
+    width: 1.6vh;
+    height: 32vh;
+  }
+
+  #btn-home {
+    margin-top: 15vh;
+    padding: 7px;
+    width: 29px;
+    height: 30px;
+  }
+}
