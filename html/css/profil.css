@@ -23,6 +23,11 @@
   }
   .list-group-item {
     background-color: rgba(255,255,255,0.05);
-    color: white;
+    color: rgb(107, 107, 107);
+    border-color: rgba(255,255,255,0.1);
+  }
+  .list-group-item-label {
+    background-color: rgba(255,255,255,0.05);
+    color: rgb(226, 226, 226);
     border-color: rgba(255,255,255,0.1);
   }

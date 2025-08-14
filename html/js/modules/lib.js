@@ -207,7 +207,6 @@ lib.home = (my) => {
 
     // Mise en place des actions des menu
     profil.action();
-    myCar.action();
     policeList.action();
     getCall.action();
     policeFindVe.action();

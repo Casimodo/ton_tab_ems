@@ -48,9 +48,9 @@ profil.action = () => {
                 <div class="card">
                     <div class="card-header">Informations Personnel</div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Prénom: ${dt.firstName}</li>
-                        <li class="list-group-item">Nom: ${dt.lastName}</li>
-                        <li class="list-group-item">Taille: ${dt.height / 100} m</li>
+                        <li class="list-group-item">Prénom: <span class="list-group-item-label">${dt.firstName}</span></li>
+                        <li class="list-group-item">Nom: <span class="list-group-item-label">${dt.lastName}</span></li>
+                        <li class="list-group-item">Taille: <span class="list-group-item-label">${dt.height / 100} m</span></li>
                     </ul>
                 </div>
             </div>
@@ -58,9 +58,9 @@ profil.action = () => {
                 <div class="card">
                     <div class="card-header">Informations Emploi</div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Job: ${dt.job.label}</li>
-                        <li class="list-group-item">Grade: ${dt.job.grade_name}</li>
-                        <li class="list-group-item">Salary: $${lib.formatNumber(dt.job.grade_salary)}</li>
+                        <li class="list-group-item">Job: <span class="list-group-item-label">${dt.job.label}</span></li>
+                        <li class="list-group-item">Grade: <span class="list-group-item-label">${dt.job.grade_name}</span></li>
+                        <li class="list-group-item">Salary: <span class="list-group-item-label">$${lib.formatNumber(dt.job.grade_salary)}</span></li>
                     </ul>
                 </div>
             </div>
@@ -71,20 +71,20 @@ profil.action = () => {
                 <div class="card">
                     <div class="card-header">Information Gang</div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Gang: ${dt.gang.label}</li>
-                        <li class="list-group-item">Grade: ${dt.gang.grade_label}</li>
-                        <li class="list-group-item">Grade ID: ${dt.gang.grade}</li>
+                        <li class="list-group-item">Gang: <span class="list-group-item-label">${dt.gang.label}</span></li>
+                        <li class="list-group-item">Grade: <span class="list-group-item-label">${dt.gang.grade_label}</span></li>
+                        <li class="list-group-item">Grade ID: <span class="list-group-item-label">${dt.gang.grade}</span></li>
                     </ul>
                 </div>
             </div>
-            <!--<div class="col-md-6">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">Informations Divers</div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Banque: $${bank}</li>
+                        <li class="list-group-item">Banque: <span class="list-group-item-label">$${bank}</span></li>
                     </ul>
                 </div>
-            </div>-->
+            </div>
         </div>
 
     `;
