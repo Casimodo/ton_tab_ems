@@ -1,35 +1,32 @@
 import * as lib from './lib.js';
 
-/**
- * Permet de lancer les actions quand le menu est déclaré
- */
-export function action(datas) {
 
+/** ****************************************************************************
+ * Contenu par défaut de la page
+ * ****************************************************************************/
+export function content(datas) {
 
-    $('#openProfil').on('click', () => {
-
-        console.log('openProfil.action', JSON.stringify(datas));
-        let dt = datas.profil;
+    let dt = datas.profil;
         
-        let money = 0;
-        let black_money = 0;
-        let bank = 0;
-        dt.accounts.forEach((acc) => {
-            switch (acc.name) {
-                case 'money':
-                    money = lib.formatNumber(acc.money)
-                    break;
-                case 'black_money':
-                    black_money = lib.formatNumber(acc.money)
-                    break;
-                case 'bank':
-                    bank = lib.formatNumber(acc.money)
-                    break;
-                default:
-                    break;
-            }
-        });
-        const contenu = `
+    let money = 0;
+    let black_money = 0;
+    let bank = 0;
+    dt.accounts.forEach((acc) => {
+        switch (acc.name) {
+            case 'money':
+                money = lib.formatNumber(acc.money)
+                break;
+            case 'black_money':
+                black_money = lib.formatNumber(acc.money)
+                break;
+            case 'bank':
+                bank = lib.formatNumber(acc.money)
+                break;
+            default:
+                break;
+        }
+    });
+    const contenu = `
         <div class="profile-header">
             <div class="row align-items-center">
                 <div class="col-auto">
@@ -87,8 +84,18 @@ export function action(datas) {
         </div>
 
     `;
-        $('#content').html(contenu);
+    $('#content').html(contenu);
+};
 
-    });
+
+/** ****************************************************************************
+ * Permet de lancer les actions quand click sur l'icon de la home page
+ * ****************************************************************************/
+export function action(datas) {
+
+    // (Re)bind jQuery avec NAMESPACE pour éviter les doublons
+    $('#openProfil').on('click', () => {
+        content(datas);
+    }); 
 
 };

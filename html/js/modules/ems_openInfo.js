@@ -1,31 +1,28 @@
+
 /** ****************************************************************************
  * Contenu par défaut de la page
  * ****************************************************************************/
 export function content(datas) {
 
     let dt = datas;
-    console.log('emsOpenInfo.content', JSON.stringify(dt.url));
+    let content = `
+        <div>
+            <embed class="embed-googlesheet" src="` + dt.url.google_info_service + `"/>
+        </div>
+    `;
 
-        let content = `
-            <div id="info_service">
-                tototoo
-                <embed class="embed" src="` + dt.url.url_google_info_service + `"/>
-            </div>
-        `;
-
-        $('#content').html(content);
-
+    $('#content').html(content);
 };
+
 
 /** ****************************************************************************
  * Permet de lancer les actions quand click sur l'icon de la home page
  * ****************************************************************************/
 export function action(datas) {
 
+    // (Re)bind jQuery avec NAMESPACE pour éviter les doublons
     $('#emsOpenInfo').on('click', () => {
-
         content(datas);
-
-    });
+    }); 
 
 };

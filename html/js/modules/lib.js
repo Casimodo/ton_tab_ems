@@ -1,29 +1,29 @@
-
 const lib = {};
 let actif = '';
 
-import * as profil from './profil.js';
 
-/**
+/** ****************************************************************************
  * Permet de savoir quelle page est active
- */
+ * ****************************************************************************/
 export function getActif() {
     return actif;
 }
 
-/**
+
+/** ****************************************************************************
  * Permet de mettre à jour la page active
  * @param {*} page 
- */
+ * ****************************************************************************/
 export function setActif(page) {
     actif = page;
 }
 
-/**
+
+/** ****************************************************************************
  * Permet de gerer des previews sur les images
  * @param {*} urlInput 
  * @param {*} previewDiv 
- */
+ * ****************************************************************************/
 export function previewImage (urlInput, previewDiv) {
     $(urlInput).on('input', function () {
         const url = $(this).val();
@@ -36,9 +36,9 @@ export function previewImage (urlInput, previewDiv) {
 }
 
 
-/**
+/** ****************************************************************************
  * Demande de close de la tablette envoi au client
- */
+ * ****************************************************************************/
 export function close() {
     fetch(`https://${GetParentResourceName()}/close`, {
         method: 'POST',
@@ -53,6 +53,9 @@ export function close() {
     });
 };
 
+/** ****************************************************************************
+ * Permet d'envoyer une commande au client
+ * ****************************************************************************/
 export function postCmd(cmd) {
     close();
     fetch(`https://${GetParentResourceName()}/${cmd}`, {
@@ -66,25 +69,10 @@ export function postCmd(cmd) {
     });
 }
 
-/**
- * Permet d'appeler
- */
-export function call(number) {
-    fetch(`https://${GetParentResourceName()}/phone_call`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify(number),
-    }).then(resp => resp.json()).then(resp => {
 
-    });
-};
-
-
-/**
+/** ****************************************************************************
  * Permet de mettre un écran patientez
- */
+ * ****************************************************************************/
 export function wait() {
     const contenu = `
         <div class="spinner-border text-secondary p-wait" role="status">
@@ -95,13 +83,17 @@ export function wait() {
 };
 
 
+/** ****************************************************************************
+ * Permet de vider l'écran
+ * ****************************************************************************/
 export function clearScreen() {
     $('#police_dossier_edit').hide();
 };
 
-/**
+
+/** ****************************************************************************
  * Met à jour l'heure
- */
+ * ****************************************************************************/
 export function updateTime() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -111,10 +103,10 @@ setInterval(updateTime(), 1000);
 updateTime();
 
 
-/**
+/** ****************************************************************************
  * Permet de formater un nombre en version US
  * @param {int} nombre 
- */
+ * ****************************************************************************/
 export function formatNumber(nombre) {
     return nombre.toLocaleString('en-US', {
         minimumFractionDigits: 2, // Pour afficher deux décimales
@@ -122,10 +114,11 @@ export function formatNumber(nombre) {
     });
 }
 
-/** *******************************************
+
+/** ****************************************************************************
  *  timestamp to local string format
  * @param {timestamp (unix * 1000) for miliem format} not_unix_timestamp 
- ******************************************** */
+ * ****************************************************************************/
 export function formatTimestamp(timestamp) {
     // Crée un objet Date à partir du timestamp
     const date = new Date(timestamp);

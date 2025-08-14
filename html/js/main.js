@@ -2,11 +2,13 @@ import * as lib from './modules/lib.js';
 import * as profil from './modules/profil.js';
 import * as emsOpenInfo from './modules/ems_openInfo.js';
 
+let bsTooltips = [];                // instances de tooltips (BS5)
 
-/**
+
+/** ****************************************************************************
  * Pour afficher le menu HOME
  * datas : {profil: {}, url: {}, img64: ''}
- */
+ * ****************************************************************************/
 function home(datas) {
 
     let app_police = ``;
@@ -81,10 +83,10 @@ function home(datas) {
     // mecanoList.action();
 
     // Les petits raccourcis client
-    $('#openSiteWeb').on('click', () => {
-        lib.actif = 'open_page_formation';
-        $('#content').html($('#open_page_formation').html());
-    });
+    // $('#openSiteWeb').on('click', () => {
+    //     lib.actif = 'open_page_formation';
+    //     $('#content').html($('#open_page_formation').html());
+    // });
     $('#openInfo').on('click', () => {
         $('#content').html($('#aide_info').html());
     });
@@ -95,9 +97,9 @@ function home(datas) {
 };
 
 
-/** *******************************************
- *  apres le chargement de la page
- ******************************************** */
+/** ****************************************************************************
+ * Apres le chargement de la page
+ * ****************************************************************************/
 $(document).ready(() => {
 
     // Par défaut la tablette est caché
@@ -116,7 +118,9 @@ $(document).ready(() => {
 });
 
 
-// Dispatch des traitements au moment de la réception de message
+/** ****************************************************************************
+ * Dispatch des traitements au moment de la réception de message
+ * ****************************************************************************/
 let datas = {
     profil: null,
     url: null,
@@ -132,7 +136,6 @@ window.addEventListener('message', function (event) {
                 datas.url = event.data.url;
                 datas.img = event.data.img64;
 
-                console.log('url', JSON.stringify(event.data));
                 $('body').show();
                 home(datas); // Affichage de la page d'accueil
                 break;
@@ -147,7 +150,21 @@ window.addEventListener('message', function (event) {
     }
 });
 
-$('#btn-home').on('click', (event) => {
+/** ****************************************************************************
+ * Action btn HOME
+ * ****************************************************************************/
+$('#btn-home').on('click', () => {
     lib.setActif('');
     home(datas);
 });
+
+
+/** ****************************************************************************
+ * Dispose Bootstrap permet de libérer la mémoire
+ * ****************************************************************************/
+if (window.bootstrap?.Tooltip) {
+    bsTooltips.forEach(inst => inst?.dispose?.());
+    bsTooltips = [];
+} else {
+    $('.has-tooltip').tooltip('dispose');
+}

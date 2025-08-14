@@ -20,7 +20,6 @@ server_script {
 shared_script {
     '@ox_lib/init.lua',
 	'@es_extended/imports.lua',
-    'shared/local.lua',
 	'shared/config.lua',
 }
 
