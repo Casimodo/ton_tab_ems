@@ -4,7 +4,7 @@ local function getDatasPlayer(source)
     if xPlayer then
 
         local gang = {name = "Aucun", label = "Aucun", grade = "Aucun"}
-        print("xPlayer.gang: " .. json.encode(xPlayer.gang))
+
         if xPlayer.gang ~= nil then
             gang.name = xPlayer.gang.name
             gang.label = xPlayer.gang.label

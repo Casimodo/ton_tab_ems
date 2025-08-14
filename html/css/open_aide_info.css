@@ -4,7 +4,7 @@
     border-radius: 20px;
     padding: 20px;
     max-width: 800px;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
     border: 2px solid #3a3a3a;
 }
 #police_info {
@@ -13,17 +13,17 @@
     border-radius: 20px;
     padding: 20px;
     max-width: 800px;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
     border: 2px solid #3a3a3a;
 }
 .welcome-text {
-    color: #00ff00;
+    color: #ff0000;
     font-family: 'Courier New', monospace;
     margin-bottom: 25px;
 }
 .info-card {
     background-color: #333;
-    border: 1px solid #00ff00;
+    border: 1px solid #ff0000;
     margin-bottom: 15px;
     padding: 15px;
     border-radius: 10px;
@@ -31,10 +31,10 @@
 }
 .info-card:hover {
     transform: translateX(10px);
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 .info-card i {
-    color: #00ff00;
+    color: #ff0000;
     margin-right: 10px;
 }
 .text-content {

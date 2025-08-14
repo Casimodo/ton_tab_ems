@@ -31,8 +31,11 @@ AddEventHandler('ton_tablette:openTablette', function(datas)
     -- Envoie les données à la page HTML via NUI
     SendNUIMessage({
         type = 'open',
-        img64 = img64,
-        values = datas
+        values = datas,
+        url = {
+            google_info_service = Config.url_google_info_service,
+        },
+        img64 = img64
     })
     
     -- Affiche la page HTML

@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="./external/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="./css/profil.css">
-  <link rel="stylesheet" href="./css/police_find_ve.css">
-  <link rel="stylesheet" href="./css/police_dossier.css">
-  <link rel="stylesheet" href="./css/police_casier.css">
   <link rel="stylesheet" href="./css/open_aide_info.css">
+
+  <!-- <link rel="stylesheet" href="./css/police_find_ve.css">
+  <link rel="stylesheet" href="./css/police_dossier.css">
+  <link rel="stylesheet" href="./css/police_casier.css"> -->
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 
@@ -32,46 +33,28 @@
     <!-- ================= DEBUT EDITION DOSSIER ================= -->
     <div id="aide_info">
       <div class="welcome-text">
-        <h2><i class="fas fa-laptop"></i> Bienvenue sur Despote-Island</h2>
-        <p>Pour bien commencer l'aventure, plein de choses s'offrent à vous !</p>
+        <h2><i class="fas fa-laptop"></i> Bienvenue sur votre Tablette EMS</h2>
+        <p><i>Cette tablette n'affichera les applications disponible que si vous être EMS !</i></p>
       </div>
 
       <div class="info-card">
-        <h4><i class="fas fa-briefcase"></i> Pôle Emploi</h4>
+        <h4><i class="fa-solid fa-keyboard text-success"></i> Applications sur cette tablette</h4>
         <div class="text-content">
-          <p>Commencez votre carrière avec un prêt de véhicule ! Devenez livreur avec un scooter en attendant votre
-            permis.</p>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <h4><i class="fas fa-flag"></i> Préfecture</h4>
-        <div class="text-content">
-          <p>N'oubliez pas vos papiers ! Notre préfecture est symbolisée par un drapeau patriote.</p>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <h4><i class="fas fa-shopping-basket text-success"></i> Magasin Général</h4>
-        <div class="text-content">
-          <p>Faites vos premiers achats, notamment un téléphone et sa carte SIM indispensable (n'oubliez pas de
-            l'utiliser) !</p>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <h4><i class="fa-solid fa-keyboard text-success"></i> Vos doigts</h4>
-        <div class="text-content">
-          <p><i>Pensez à regarder dans votre tête "configuration des touches" > "FiveM" et en général ont à</i></p>
+          <p><i>Disponible en fonction de votre grade !</i></p>
           <ul>
-            <li>F1 : Téléphone</li>
-            <li>F2 : Inventaire</li>
-            <li>F3 : Danser / Animation</li>
-            <li>F5 : Option dans un métier (LSPD...)</li>
-            <li>F7 : Factures (créer et payer en liquide, sinon en banque)</li>
-            <li>F11 : Parler plus ou moins fort</li>
-            <li>W : Raccourci programations animations</li>
-            <li>Y : tenues</li>
+            <li>Vos informations</li>
+            <li>Dispatch Map</li>
+            <li>Les effectifs</li>
+            <li>Prise de service</li>
+            <li>Dispatch (Unités, Affectation Véhicule, Secteur, CP, Equipes, Statut)</li>
+            <li>Recrutement et gestion du personnel (grade, fiche etc)</li>
+            <li>Gestion des soins (Création, Modification, Suppression) avec desciptif et prix pour la facturation</li>
+            <li>Création / Modification d'un fichier patient (suppression réservé grade voir config)</li>
+            <li>Création / Modification d'une fiche traitement patient, avec facturation (suppression réservé grade voir config)</li>
+            <li>Recherche de fiche d'un patient</li>
+            <li>Création des papiers pour les arrêts de travail et autre</li>
+            <li>Aide à la création d'une fiche de soins (gestion par les gradés)</li>
+            <li>Gestion feuille de temps</li>
           </ul>
         </div>
       </div>
@@ -81,386 +64,23 @@
         <div class="text-content">
           <p>En cas de problème :</p>
           <ul>
-            <li>SMS au 666 (en RP)</li>
-            <li>Commande /ticket (en HRP)</li>
+            <li>Contacter votre haut gradé</li>
+            <li>Contacter les hautes instances <i>dans le pire des cas</i></li>
           </ul>
-          <p><small>* Nous privilégions le SMS au 666 si un formateur est disponible.</small></p>
+          <p><small>* Nous privilégions la simplicité.</small></p>
         </div>
       </div>
     </div>
     <!-- ================= FIN AIDE / INFO ================= -->
 
-    <!-- ================= DEBUT PROCEDURE ================= -->
-    <div id="police_info">
-      <div class="welcome-text">
-        <h2><i class="fas fa-laptop"></i> Procédure et Infos LSPD / BCSO</h2>
-        <p>Merci d'apprendre vos procédures en temps que personne de l'état !</p>
-      </div>
 
-      <div class="info-card">
-        <h4><i class="fas fa-flag"></i> Loi Miranda</h4>
-        <div class="text-content">
-          <p>Monsieur / Madame <strong><i>[Prénom NOM]</i></strong>, nous sommes le <strong><i>##/##/##</i></strong>, il
-            est <strong><i>##h##</i></strong>.</p>
-          <p>Vous êtes en état d’arrestation pour le/les fait(s) suivant(s) : <strong><i>#########</i></strong></p>
-          <p>Vous avez le droit de garder le silence. Tout ce que vous direz pourra et sera retenu contre vous lors
-            d’une cour de justice. Vous avez le droit à un avocat et d’avoir un avocat présent lors de votre
-            interrogatoire. Si vous n’en avez pas les moyens, un avocat vous sera commis d’office. Durant votre temps
-            d’arrestation, vous avez le droit à des soins médicaux si vous en ressentez le besoin ainsi qu’à de la
-            nourriture. Vous pouvez décider à n’importe quel moment d’exercer vos droits, de répondre à aucune question
-            et de ne faire aucune déposition.</p>
-          <p>Avez-vous bien compris vos droits ? (Il/elle doit absolument répondre)</p>
-          <p>Souhaitez vous faire valoir vos droits ? (Il/elle doit absolument répondre)</p>
-        </div>
-      </div>
-
-      <div class="info-card emergency-info">
-        <h4><i class="fas fa-exclamation-triangle"></i> Les Call Radio</h4>
-        <div class="text-content">
-          <p>Merci de les apprendres</p>
-          <ul>
-            <li>10-0 Agent à terre</li>
-            <li>10-3 Réponse d'urgence</li>
-            <li>10-4 Affirmatif / Reçu</li>
-            <li>10-5 Négatif</li>
-            <li>10-6 Off Radio / Occupé</li>
-            <li>10-7 Agent en pause</li>
-            <li>10-8 Début de patrouille</li>
-            <li>10-9 Call mal entendu / Répété</li>
-            <li>10-11 Tirs non identifier</li>
-            <li>10-12 Contrôle</li>
-            <li>10-15 En garde a vue</li>
-            <li>10-17 poursuite en cours </li>
-            <li>10-18 Retour au poste</li>
-            <li>10-19 En route vers / En direction de</li>
-            <li>10-20 Demande de position / Position</li>
-            <li>10-21 Retour au poste avec un/des suspects appréhendés</li>
-            <li>10-22 Annulation du dernier call radio</li>
-            <li>10-24 Demande de renfort</li>
-            <li>10-25 Vol de parcmètres</li>
-            <li>10-29 Enquêter</li>
-            <li>10-35 Vol de véhicule</li>
-            <li>10-36 Vol de véhicule avec agression</li>
-            <li>10-38 Contrôle routier</li>
-            <li>10-41 Attente de dispatch</li>
-            <li>10-42 Fin de patrouille</li>
-            <li>10-44 Braquage d'un domicile privé</li>
-            <li>10-45 Braquage mineur</li>
-            <li>10-47 Assistance médical</li>
-            <li>10-50 Accident léger de la circulation</li>
-            <li>10-51 Accident grave de la circulation</li>
-            <li>10-60 Vente de drogue</li>
-            <li>10-64 Vol sur citoyens</li>
-            <li>10-65 Agression sur citoyen</li>
-            <li>10-66 Suspicion d'activité</li>
-            <li>10-69 Cambriolage bâtiments</li>
-            <li>10-70 Course poursuite / Refus d’obtempérer </li>
-            <li>10-80 Tir en véhicule</li>
-            <li>10-85 Vol de véhicule</li>
-            <li>10-90 Braquage de banque</li>
-            <li>10-91 Braquage ATM</li>
-            <li>10-92 Braquage de magasin</li>
-            <li>10-95 Explosion</li>
-            <li>10-97 Arrivé sur les lieux</li>
-            <li>10-98 évasion en cours</li>
-            <li>10-99 Agent en danger</li>
-            <li>10-99 : Policier en danger</li>
-          </ul>
-
-          <p><strong>Codes additionnels</strong></p>
-          <ul>
-            <li>Code 1 Patrouille / Intervention sans gyrophare ni sirène</li>
-            <li>Code 2 Prise d'appel d'urgence / gyrophares activés mais sans sirène</li>
-            <li>Code 3 Appel prioritaire (only situation critique) / gyro + sirène activés</li>
-            <li>Code 4 Reprise de patrouille</li>
-            <li>Code 5 Civil à terre / suspect à terre</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- <div class="info-card">
-        <h4><i class="fas fa-shopping-basket text-success"></i> Les tenues</h4>
-        <div class="text-content">
-          <ul>
-            <li>cPfWQOxLO: détective</li>
-            <li>aS6vwnj2Jo: K9 brigade canine</li>
-            <li>VuMbtPxu9H: K9 variation</li>
-            <li>Ve-fFLW8pM: sergent</li>
-            <li>mn0YP8YeYa: officier</li>
-            <li>BGDYGr89_b: lieutenant</li>
-            <li>VE5MabMVnt: Officier II</li>
-            <li>HF244WkcTB: Officier hélico</li>
-            <li>qMby2tNTjG: Officier motard</li>
-            <li>AwvpC6X1Oe: Officier moto cross</li>
-            <li>vIOsUhhMjZ: Officier pluie (variation)</li>
-            <li>oSi_i4LJwL: Officier Swat</li>
-            <li>VU8deX9WYg: Officier variation</li>
-            <li>rWYO6m3uzV: Officier veste</li>
-            <li>KmAbt0rmW: Officier vélo</li>
-            <li>ZyFLWAtk9p: Sergent senior</li>
-          </ul>
-        </div>
-      </div> -->
-
-    </div>
-    <!-- ================= FIN AIDE / INFO ================= -->
-
-    <!-- ================= DEBUT EDITION DOSSIER ================= -->
-    <div id="police_dossier_edit">
-      <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-          <form>
-            <h5>Formulaire Judiciaire</h5>
-
-            <div class="mb-3">
-              <button type="button" id="form_police_dossier_edit" class="btn btn-danger">Sauvegarder</button>
-              <button type="button" id="formIncidentBtnCancel" class="btn btn-secondary">Annuler / Retour</button>
-              <button type="button" id="formIncidentBtnImp" class="btn btn-primary">Document <i
-                  class="fa-solid fa-print"></i></button>
-            </div>
-
-            <div class="row justify-content-center overflowSm2" id="form_incident_content">
-              <input type="text" hidden class="form-control" id="formIncidentId">
-              <input type="text" hidden class="form-control" id="formIncidentAgent">
-              <input type="text" hidden class="form-control" id="formIncidentDate">
-              <div class="mb-3">
-                <label for="formIncidentLabel" class="form-label"></label>
-                <input type="text" class="form-control" id="formIncidentLabel" placeholder="Explication courte max 50"
-                  maxlength="50" required>
-              </div>
-              <div class="mb-3">
-                <label for="formIncidentComment" class="form-label">Commentaire</label>
-                <textarea class="form-control" id="formIncidentComment" rows="3"
-                  placeholder="tous les champs sont exploité par le moteur de recherche afin d'améliorer les enquêtes merci de remplir correctement tout le formulaire"
-                  required></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="formIncidentType" class="form-label">Type</label>
-                <select class="form-select" id="formIncidentType" required>
-                  <option value="rapport">Rapport</option>
-                  <option value="amende">Amende (permet de calculer le prix et le temps de prison) [F7] - pour mettre
-                    l'ammende)</option>
-                  <option value="vol">Plainte pour vols</option>
-                  <option value="agression">Plainte pour agression</option>
-                  <option value="plainte">Autre plainte</option>
-                  <option value="recherche">Avis de recherche</option>
-                  <option value="saisie">Saisie</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="formIncidentLieu" class="form-label">Lieu</label>
-                <input type="text" class="form-control" id="formIncidentLieu" placeholder="" maxlength="100">
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Civils</label>
-                <input type="text" class="form-control" placeholder="nom de ou des civils" id="formIncidentCivil">
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Contact (un seule numéro de téléphone, une fois saisie cliquer sur l'icon pour
-                  le tester)</label>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="num de téléphone" id="formIncidentPhone">
-                  <button class="btn btn-outline-secondary" type="button"
-                    onclick="lib.call($('#formIncidentPhone').val())"><i class="fa-solid fa-phone-flip"></i></button>
-                </div>
-                <label class="form-label">N° Casier</label>
-                <input type="text" class="form-control" placeholder="mettre ici le n° de casier des preuves" id="formIncidentNumCasier">
-              </div>
-              <div class="mb-3" id="amendeList">
-                <label class="form-label">Amendes</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Tapez un nom d'amendes..."
-                    id="formIncidentAmendes">
-                  <span class="input-group-text" id="formIncidentAmendesPrix">$0</span>
-                  <span class="input-group-text" id="formIncidentAmendesPrison">0mn</span>
-                </div>
-                <div class="input-group">
-                  <div id="selected-amendes"></div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Photo 1</label>
-                  <div class="photo-preview" id="previewIncident1">
-                    <i class="fas fa-camera fa-3x text-muted"></i>
-                  </div>
-                  <input type="url" class="form-control" id="formIncidentPhoto1" placeholder="URL de la photo 1">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Photo 2</label>
-                  <div class="photo-preview" id="previewIncident2">
-                    <i class="fas fa-camera fa-3x text-muted"></i>
-                  </div>
-                  <input type="url" class="form-control" id="formIncidentPhoto2" placeholder="URL de la photo 2">
-                </div>
-              </div>
-      
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Photo 3</label>
-                  <div class="photo-preview" id="previewIncident3">
-                    <i class="fas fa-camera fa-3x text-muted"></i>
-                  </div>
-                  <input type="url" class="form-control" id="formIncidentPhoto3" placeholder="URL de la photo 3">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Photo 4</label>
-                  <div class="photo-preview" id="previewIncident4">
-                    <i class="fas fa-camera fa-3x text-muted"></i>
-                  </div>
-                  <input type="url" class="form-control" id="formIncidentPhoto4" placeholder="URL de la photo 4">
-                </div>
-              </div>
-      
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Photo 5</label>
-                  <div class="photo-preview" id="previewIncident5">
-                    <i class="fas fa-camera fa-3x text-muted"></i>
-                  </div>
-                  <input type="url" class="form-control" id="formIncidentPhoto5" placeholder="URL de la photo 5">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Photo 6</label>
-                  <div class="photo-preview" id="previewIncident6">
-                    <i class="fas fa-camera fa-3x text-muted"></i>
-                  </div>
-                  <input type="url" class="form-control" id="formIncidentPhoto6" placeholder="URL de la photo 6">
-                </div>
-              </div>
-
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- ================= FIN EDITION DOSSIER ================= -->
-
-    <!-- ================= DEBUT CASIER JUDICIAIRE ================= -->
-    <div id="police_casier_edit">
-      <div class="header">
-        <h1><i class="fas fa-tablet-alt me-2"></i>LSPD/BCSO - Casier Judiciaire</h1>
-        <p class="text-muted">Los Santos Police Department</p>
-
-        <input type="text" hidden class="form-control" id="formCasierAgent" required>
-        <input type="text" hidden class="form-control" id="formCasierId" required>
-      </div>
-
-      <form>
-        
-        <div class="row mb-3">
-          <div class="col-12">
-            <button type="button" id="form_police_casier_edit" class="btn btn-danger">Sauvegarder</button>
-            <button type="button" id="formCasierBtnCancel" class="btn btn-secondary">Annuler / Retour</button>
-            <button type="button" id="formCasierBtnImp" class="btn btn-primary">Document <i
-                class="fa-solid fa-print"></i></button>
-          </div>
-        </div>
-
-        <div class="row mb-3"></div>
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="formCasierNom" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="formCasierNom" required>
-          </div>
-          <div class="col-md-6">
-            <label for="formCasierPrenom" class="form-label">Prénom</label>
-            <input type="text" class="form-control" id="formCasierPrenom" required>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="formCasierDatebirday" class="form-label">Date de naissance</label>
-            <input type="date" class="form-control" id="formCasierDatebirday" required>
-          </div>
-          <div class="col-md-6">
-            <label for="formCasierPhone" class="form-label">Téléphone</label>
-            <input type="tel" class="form-control" id="formCasierPhone" required>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-12">
-            <label for="formCasierComment" class="form-label">Commentaire</label>
-            <textarea class="form-control" id="formCasierComment" rows="3"
-              placeholder="tous les champs sont exploité par le moteur de recherche afin d'améliorer les enquêtes merci de remplir correctement tout le formulaire"
-              required></textarea>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="formCasierAdn" class="form-label">ADN (voir avec un médacin pour le récupérer sur
-              l'inndividu)</label>
-            <input type="text" class="form-control" id="formCasierAdn">
-          </div>
-          <div class="col-md-6">
-
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Photo 1</label>
-            <div class="photo-preview" id="previewCasier1">
-              <i class="fas fa-camera fa-3x text-muted"></i>
-            </div>
-            <input type="url" class="form-control" id="formCasierPhoto1" placeholder="URL de la photo 1">
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Photo 2</label>
-            <div class="photo-preview" id="previewCasier2">
-              <i class="fas fa-camera fa-3x text-muted"></i>
-            </div>
-            <input type="url" class="form-control" id="formCasierPhoto2" placeholder="URL de la photo 2">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Photo 3</label>
-            <div class="photo-preview" id="previewCasier3">
-              <i class="fas fa-camera fa-3x text-muted"></i>
-            </div>
-            <input type="url" class="form-control" id="formCasierPhoto3" placeholder="URL de la photo 3">
-          </div>
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Photo 4</label>
-            <div class="photo-preview" id="previewCasier4">
-              <i class="fas fa-camera fa-3x text-muted"></i>
-            </div>
-            <input type="url" class="form-control" id="formCasierPhoto4" placeholder="URL de la photo 4">
-          </div>
-        </div>
-
-      </form>
-    </div>
-    <!-- ================= FIN CASIER JUDICIAIRE ================= -->
 
     <!-- ================= DEBUT VIDEO FORMATIONS ================= -->
-    <div id="open_page_formation">
+    <!-- <div id="open_page_formation">
       <embed class="embed" src="https://www.despote-island.com/pole_emplois"/>
-    </div>
+    </div> -->
 
-    <!-- ================= DEBUT POLICE DEFCON ================= -->
-    <div id="police_codepenal">
-      <embed class="embed" src="https://docs.google.com/spreadsheets/d/1xqeYae6vBy3SOiGP90_TgYn_Wx-yfcvKcw6ogiE306w/preview"/>
-    </div>
-    <!-- ================= DEBUT POLICE EVOLUTION ================= -->
-    <div id="police_evolution">
-      <embed class="embed" src="https://docs.google.com/document/d/1Y6nHU6HE8C2tYBTSJsQdVfFikSXbf08PFo90aiPLnMQ/preview"/>
-    </div>
-    <!-- ================= DEBUT POLICE STORY ================= -->
-    <div id="police_story">
-      <embed class="embed" src="https://docs.google.com/document/d/1ufHNHhCBW1-HJlBLXmtsG3LvxiQ8LLMiAxBjWpNb9MA/preview"/>
-    </div>
-
-
-
+    
 
 
 
@@ -482,17 +102,18 @@
 <!-- <script src="external/js/materialize.js" type="text/javascript"></script> -->
 <script src="https://unpkg.com/feather-icons"></script>
 
-<script src="./js/modules/lib.js"></script>
-<script src="./js/modules/profil.js"></script>
-<script src="./js/modules/my_car.js"></script>
-<script src="./js/modules/police_list.js"></script>
+<!-- <script src="./js/modules/profil.js"></script> -->
+<!-- <script src="./js/modules/ems_openInfo.js"></script> -->
+
+<!-- <script src="./js/modules/police_list.js"></script>
 <script src="./js/modules/get_call.js"></script>
 <script src="./js/modules/police_find_ve.js"></script>
 <script src="./js/modules/police_dossier.js"></script>
 <script src="./js/modules/police_casier.js"></script>
 <script src="./js/modules/police_licence.js"></script>
-<script src="./js/modules/police_souscat1.js"></script>
-<script src="./js/modules/mecano_list.js"></script>
-<script src="./js/main.js"></script>
+<script src="./js/modules/mecano_list.js"></script> -->
+
+<!-- <script type="module" src="./js/modules/lib.js"></script> -->
+<script type="module" src="./js/main.js"></script>
 
 </html>

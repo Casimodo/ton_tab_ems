@@ -1,16 +1,15 @@
-profil = {};
-profil.datas = null;
-profil.img = null;
+import * as lib from './lib.js';
 
 /**
  * Permet de lancer les actions quand le menu est déclaré
  */
-profil.action = () => {
+export function action(datas) {
 
 
     $('#openProfil').on('click', () => {
 
-        let dt = profil.datas;
+        console.log('openProfil.action', JSON.stringify(datas));
+        let dt = datas.profil;
         
         let money = 0;
         let black_money = 0;
@@ -34,7 +33,7 @@ profil.action = () => {
         <div class="profile-header">
             <div class="row align-items-center">
                 <div class="col-auto">
-                    <img src="${profil.img}" alt="Profile Picture" class="profile-img">
+                    <img src="${datas.img}" alt="Profile Picture" class="profile-img">
                 </div>
                 <div class="col">
                     <h2>${dt.name}</h2>
@@ -59,7 +58,7 @@ profil.action = () => {
                     <div class="card-header">Informations Emploi</div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Job: <span class="list-group-item-label">${dt.job.label}</span></li>
-                        <li class="list-group-item">Grade: <span class="list-group-item-label">${dt.job.grade_name}</span></li>
+                        <li class="list-group-item">Grade: <span class="list-group-item-label">${dt.job.grade_label}</span></li>
                         <li class="list-group-item">Salary: <span class="list-group-item-label">$${lib.formatNumber(dt.job.grade_salary)}</span></li>
                     </ul>
                 </div>
@@ -92,4 +91,4 @@ profil.action = () => {
 
     });
 
-};;
+};

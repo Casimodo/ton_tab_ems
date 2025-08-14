@@ -18,12 +18,11 @@ Un certain nombre d'image sont en dans leur dossier respectif et donc modifiable
 
 ## 😁 Possibilitées
 
-- Animation d'ouverture de la tablette
 - Prise en charge multi-unité
 - Map pour les appels
 - Recrutement et gestion du personnel (grade, fiche etc) - Les grades donnes des accès différents
 - Gestion des soins (Création, Modification, Suppression) avec desciptif et prix pour la facturation
-- Création / Modification d'une fichier patient (suppression réservé grade voir config)
+- Création / Modification d'un fichier patient (suppression réservé grade voir config)
 - Création / Modification d'une fiche traitement patient, avec facturation (suppression réservé grade voir config)
 - Recherche de fiche d'un patient
 - Création des papiers avec Items pour les arrêts de travail et autre (image personnalisable pour votre serveur)
