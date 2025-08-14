@@ -12,7 +12,7 @@
     border: 3px solid #007bff;
   }
   .card {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.5);
     border: none;
     margin-bottom: 20px;
   }

@@ -57,13 +57,37 @@ body {
   z-index: 10;
   position: relative;
   margin: 50px;
-  margin-right: 1vh;
+  margin-right: 0.5vh;
   width: 97vh;
   height: 63vh;
   color: whitesmoke;
   scrollbar-width: none; /* Masquer la scrollbar */
   overflow-y: auto;
+
+  /* background-image: url('../img/tablette_fond.png'); /* chemin vers ton image */
+  /* background-size: 1200px auto; /* largeur fixe, hauteur auto 
+  background-position: center;
+  background-repeat: no-repeat;  */
+
 }
+.tablet-background {
+  margin-left: 4.2vh;
+  margin-top: 3.5vh;
+  position: fixed; /* occupe tout l'écran */
+  width: 101.5vh;
+  height: 64.3vh;
+  background-image: url('../img/tablette_fond.png'); /* chemin vers ton image */
+  background-size: cover;   /* couvre tout l'écran */
+  background-position: center; /* centré */
+  background-repeat: no-repeat;
+
+  opacity: 0.3; /* transparence (0 = invisible, 1 = opaque) */
+  z-index: 10;  /* derrière le contenu */
+
+  border-bottom-left-radius: 15px;  /* arrondi coin bas gauche */
+  border-bottom-right-radius: 15px; /* arrondi coin bas droit */
+  overflow: hidden; /* important pour masquer l’image qui dépasse */
+} 
 #btn-right {
   float: left;
   z-index: 10;
