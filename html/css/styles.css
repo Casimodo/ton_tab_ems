@@ -150,20 +150,6 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.icon-police i {
-  font-size: 30px;
-  margin-bottom: 5px;
-  background: linear-gradient(45deg, #6b8eff, #5770fe);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.icon-mecano i {
-  font-size: 30px;
-  margin-bottom: 5px;
-  background: linear-gradient(45deg, #fffd6b, #fbfcda);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 .icon-ambulance i {
   font-size: 30px;
   margin-bottom: 5px;
@@ -214,6 +200,19 @@ table {
   
   scrollbar-width: none; /* Masquer la scrollbar */
   overflow-y: auto;
+}
+
+#map {
+	width:1126.69px;
+	height:600px;
+	color: #000;
+	background: #EFEFEF;
+	margin:0 auto;
+}
+span.loading {
+	display: block;
+	text-align: center;
+	font: 300 italic 72px/400px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
 }
 
 /* ========= Ici adaptation des écrans ================ */
