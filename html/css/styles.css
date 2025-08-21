@@ -202,7 +202,7 @@ table {
   overflow-y: auto;
 }
 
-#map {
+/* #map {
 	width:1126.69px;
 	height:600px;
 	color: #000;
@@ -213,7 +213,7 @@ span.loading {
 	display: block;
 	text-align: center;
 	font: 300 italic 72px/400px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
-}
+} */
 
 /* ========= Ici adaptation des écrans ================ */
 /* Styles pour écrans >= 1920px */

@@ -162,7 +162,7 @@ export function content(datas) {
     let dt = datas;
     let content = `
         <div>
-            div id="map"><span class="loading">loading tiles...</span></div>
+            <div id="map"><span class="loading">loading tiles...</span></div>
         </div>
     `;
 

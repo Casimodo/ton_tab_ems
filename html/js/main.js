@@ -1,7 +1,7 @@
 import * as lib from './modules/lib.js';
 import * as profil from './modules/profil.js';
 import * as emsOpenInfo from './modules/ems_openInfo.js';
-import * as dispatchOpen from './modules/dispatch_open.js';
+//import * as dispatchOpen from './modules/dispatch_open.js';
 
 let bsTooltips = [];                // instances de tooltips (BS5)
 
@@ -58,7 +58,7 @@ function home(datas) {
     // Mise en place des actions des menu
     profil.action(datas);
     emsOpenInfo.action(datas);
-    dispatchOpen.action(datas);
+    //dispatchOpen.action(datas);
 
     // Les petits raccourcis client
     $('#openInfo').on('click', () => {
