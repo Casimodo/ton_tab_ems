@@ -2,9 +2,6 @@
 -- ** Simple ouverture de la tablette                   **
 -- *******************************************************
 local currentTablet = nil
-RegisterCommand("ton_tablette", function(data, cb)
-    TriggerServerEvent('ton_tablette:getMyIdentity')
-end)
 
 RegisterNetEvent('ton_tablette:openTablette')
 AddEventHandler('ton_tablette:openTablette', function(datas)
@@ -32,9 +29,7 @@ AddEventHandler('ton_tablette:openTablette', function(datas)
     SendNUIMessage({
         type = 'open',
         values = datas,
-        url = {
-            google_info_service = Config.url_google_info_service,
-        },
+        config = Config,
         img64 = img64
     })
     

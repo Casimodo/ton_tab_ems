@@ -8,9 +8,11 @@ Ce projet FiveM à pour but de créer une tablette pour les EMS dans FiveM à la
 L'idée est aussi de rester le plus émmersif possible tout en ayant pour le joueur la possibilité de continuer l'aventure sans être obligatoirement en jeux (pratique pour les chefs de service de suivre l'activité pendant leur réelle congés ou tout simplement continuer une expérience hors IG).
 Cela permet de montrer à votre comunauté les différentes possibilité de FiveM une expérience du RP innoubliable.
 
-## 📦 Installation 
+## 📦 Installation & pré-requis
 
-Simple c'est une ressources comme tout autre copier/coller et démarrer votre ressource.
+1. Installer les deux dépendances qui sont "ox_inventory" et "loaf_headshot_base64" si vous ne les avez déjà pas
+2. Aller dans le dossier "shared" et adapter la config à vos besoins.
+3. Copier la ressouces et lancez là.
 
 ## ⚙️ Personnalisation
 

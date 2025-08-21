@@ -1,6 +1,7 @@
 import * as lib from './modules/lib.js';
 import * as profil from './modules/profil.js';
 import * as emsOpenInfo from './modules/ems_openInfo.js';
+import * as dispatchOpen from './modules/dispatch_open.js';
 
 let bsTooltips = [];                // instances de tooltips (BS5)
 
@@ -11,36 +12,20 @@ let bsTooltips = [];                // instances de tooltips (BS5)
  * ****************************************************************************/
 function home(datas) {
 
-    let app_police = ``;
-    let app_patron = ``;
-    let app_mecano = ``;
     let app_ambulance = ``;
 
     lib.clearScreen();
     let myProfil = datas.profil
 
-    if (myProfil.job.name == 'mechanic') {
-        app_mecano = `
-            <div class="app-icon icon-mecano" id="openMecanoGetCall">
-                ${isGetCall}
-                <div class="app-name">Prise Appel</div>
-            </div>
-            <div class="app-icon icon-mecano" id="openMecanoList">
-                <i class="fa-solid fa-person-military-to-person"></i>
-                <div class="app-name">Effectifs</div>
-            </div>
-        `;
-    }
-
-    if (myProfil.job.name == 'ambulance') {
+    if (datas.config.job_name.includes(myProfil.job.name)) {
         app_ambulance = `
             <div class="app-icon icon-ambulance" id="emsOpenInfo">
-                <i class="fa-solid fa-person-military-to-person"></i>
+                <i class="fa-solid fa-file"></i>
                 <div class="app-name">Informations</div>
             </div>
-            <div class="app-icon icon-ambulance" id="openAmbulanceGetCall">
+            <div class="app-icon icon-ambulance" id="openDispatch">
                 <i class="fa-solid fa-person-military-to-person"></i>
-                <div class="app-name">Prise Appel</div>
+                <div class="app-name">Dispatch</div>
             </div>
         `;
     }
@@ -73,27 +58,17 @@ function home(datas) {
     // Mise en place des actions des menu
     profil.action(datas);
     emsOpenInfo.action(datas);
-
-    // policeList.action();
-    // getCall.action();
-    // policeFindVe.action();
-    // policeDossier.action();
-    // policeCasier.action();
-    // policeLicence.action();
-    // mecanoList.action();
+    dispatchOpen.action(datas);
 
     // Les petits raccourcis client
+    $('#openInfo').on('click', () => {
+        $('#content').html($('#aide_info').html());
+    });
+    // $('#cmdPmms').on('click', () => {lib.postCmd('pmms')});
     // $('#openSiteWeb').on('click', () => {
     //     lib.actif = 'open_page_formation';
     //     $('#content').html($('#open_page_formation').html());
     // });
-    $('#openInfo').on('click', () => {
-        $('#content').html($('#aide_info').html());
-    });
-    // $('#cmdVehiclekeys').on('click', () => {lib.postCmd('vehiclekeys')});
-    // $('#cmdAttachtrailer').on('click', () => {lib.postCmd('attachtrailer')});
-    // $('#cmdDetachtrailer').on('click', () => {lib.postCmd('detachtrailer')});
-    // $('#cmdPmms').on('click', () => {lib.postCmd('pmms')});
 };
 
 
@@ -119,11 +94,11 @@ $(document).ready(() => {
 
 
 /** ****************************************************************************
- * Dispatch des traitements au moment de la réception de message
+ * Traitements au moment de la réception de message
  * ****************************************************************************/
 let datas = {
     profil: null,
-    url: null,
+    config: null,
     img: null,
 };
 window.addEventListener('message', function (event) {
@@ -133,7 +108,7 @@ window.addEventListener('message', function (event) {
         switch (event.data.type) {
             case "open":
                 datas.profil = event.data.values;
-                datas.url = event.data.url;
+                datas.config = event.data.config;
                 datas.img = event.data.img64;
 
                 $('body').show();

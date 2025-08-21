@@ -7,7 +7,7 @@ export function content(datas) {
     let dt = datas;
     let content = `
         <div>
-            <embed class="embed-googlesheet" src="` + dt.url.google_info_service + `"/>
+            <embed class="embed-googlesheet" src="` + dt.config.url.google_info_service + `"/>
         </div>
     `;
 
@@ -20,7 +20,7 @@ export function content(datas) {
  * ****************************************************************************/
 export function action(datas) {
 
-    // (Re)bind jQuery avec NAMESPACE pour éviter les doublons
+    // Mise en place des actions des menu
     $('#emsOpenInfo').on('click', () => {
         content(datas);
     }); 

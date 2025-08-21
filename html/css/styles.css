@@ -220,28 +220,35 @@ table {
 /* Styles pour écrans >= 1920px */
 @media (min-width: 1920px) and (max-width: 2559px) {
   #content {
-    width: 101.4vh;
-    height: 63vh;
+    width: 100.5vh;
+    height: 62.5vh;
   }
+  
   #btn-right {
     margin: 0px;
     margin-top: 50px;
     width: 3.2vh;
     height: 63vh;
   }
+
   #btn-home {
     margin-top: 28vh;
     padding: 7px;
     width: 28px;
     height: 28px;
   }
+
+  .tablet-background {
+    width: 101.5vh;
+    height: 64.3vh;
+  }
 }
 
 /* Styles pour écrans >= 2560px */
 @media (min-width: 2560px) and (max-width: 3039px) {
   #content {
-    width: 76.0vh;
-    height: 46vh;
+    width: 75.1vh;
+    height: 45.5vh;
   }
 
   #btn-right {
@@ -257,15 +264,19 @@ table {
     width: 30px;
     height: 30px;
   }
+
+  .tablet-background {
+    width: 76.1vh;
+    height: 47.3vh;
+  }
 }
 
 /* Styles pour écrans >= 3040px */
 @media (min-width: 3040px) {
   #content {
-    width: 50.5vh;
-    height: 31vh;
+    width: 49.6vh;
+    height: 30.5vh;
   }
-
 
   #btn-right {
     margin: 0px;
@@ -280,4 +291,10 @@ table {
     width: 29px;
     height: 30px;
   }
+  
+  .tablet-background {
+    width: 50.6vh;
+    height: 32.3vh;
+  }
+
 }

@@ -37,5 +37,6 @@ files {
 dependencies {
     'es_extended',
     'oxmysql',
-    'ox_inventory'
+    'ox_inventory',
+    'loaf_headshot_base64'
 }
