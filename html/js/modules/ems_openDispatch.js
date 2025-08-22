@@ -197,7 +197,6 @@ function init(datas) {
         const px = (sx - originX) / scale;
         const py = (sy - originY) / scale;
         const { x, y } = pixelToWorld(px, py);
-        console.log('>>> click map set waypoint px, py=', px, py);
         fetch(`https://${resource}/setWaypoint`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ x, y })
@@ -218,10 +217,8 @@ function init(datas) {
         // centre initial sur la carte
         originX = (viewport.clientWidth - IMG_WIDTH * scale) / 2;
         originY = (viewport.clientHeight - IMG_HEIGHT * scale) / 2;
-        console.log('>>> img loaded x,y=', originX, originY);
         applyTransform();
     };
-    console.log('>>> set img src width,height=', IMG_WIDTH, IMG_HEIGHT);
     img.width = IMG_WIDTH; 
     img.height = IMG_HEIGHT;
 
@@ -315,9 +312,18 @@ function init(datas) {
  
 
 }
-
 /** ****************************************************************************
  * Fin system map
+ * 
+ * --- Utilisation ---
+ * -- Markers
+ * let marker = {id : 11, x : 261.758240, y : 6965.314454, label : 'appel urgence'};
+ * addMarker(marker);
+ * setActive(11);
+ * focusMarker(11, { animate: true });
+ * removeMarker(11);
+ * -- Player
+ * setPlayerPos(261.758240, 6965.314454);
  * ****************************************************************************/
 
 /** ****************************************************************************
@@ -342,25 +348,8 @@ function content(datas) {
             </div>
         </div>
     `;
-    console.log('>>>return content map');
     $('#content').html(content);
-    setTimeout(() => {
-        
-        //setPlayerPos(261.758240, 6965.314454);
-        let marker = {id : 11, x : 261.758240, y : 6965.314454, label : 'appel urgence'};
-        addMarker(marker);
-        setActive(11);
-        focusMarker(11, { animate: true });
-        //removeMarker(id);
-        //setActive(id);
-        //focusMarker(id, opts = { animate: true });
-
-    }, 3000);
-    setTimeout(() => {
-        
-        removeMarker(11);
-
-    }, 6000);
+    
 }
 
 /** ****************************************************************************
@@ -370,7 +359,7 @@ export function action(datas) {
 
     // Mise en place des actions des menu
     $('#openDispatch').on('click', () => {
-        console.log('>>>click openDispatch');
+        
         content(datas);
         init(datas);
     }); 
