@@ -2,7 +2,7 @@
 /** ****************************************************************************
  * Contenu par défaut de la page
  * ****************************************************************************/
-export function content(datas) {
+function content(datas) {
 
     let dt = datas;
     let content = `

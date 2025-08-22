@@ -1,0 +1,42 @@
+
+#viewport {
+  position: relative;
+  flex: 1; background: #0b0d13;
+  overflow: hidden; cursor: grab;
+}
+
+/* Le fond + calques se déplacent/zooment ensemble via transform du wrapper */
+#mapImage {
+  position: absolute; left: 0; top: 0;
+  transform-origin: 0 0;
+  user-select: none; pointer-events: none;
+  image-rendering: auto;
+}
+
+#markers, #playerDot {
+  position: absolute; left: 0; top: 0;
+  transform-origin: 0 0;
+}
+
+.marker {
+  position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: #eab308; border: 2px solid #111; box-shadow: 0 0 0 2px #0006;
+  transform: translate(-50%, -100%); /* pointe sur le “pied” */
+  cursor: pointer;
+}
+.marker.active { outline: 2px solid #fff; }
+
+.dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #3b82f6; border: 2px solid #fff; box-shadow: 0 0 0 2px #3b82f680;
+  transform: translate(-50%, -50%);
+}
+
+#scalebar {
+  height: 6px; min-width: 80px; background: #fff;
+  position: relative; border-radius: 3px;
+}
+#scalebar::after {
+  content: attr(data-label);
+  position: absolute; top: -18px; left: 0; font-size: 12px; color: #cbd5e1;
+}
