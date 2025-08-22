@@ -3,8 +3,8 @@
   position: relative;
   flex: 1; background: #143d6b;
   overflow: hidden; cursor: grab;
-  width: 45vh;
-  height: 60vh;
+  width: 40vh;
+  height: 55vh;
 }
 
 #world, #mapImage, #markers, #playerDot {

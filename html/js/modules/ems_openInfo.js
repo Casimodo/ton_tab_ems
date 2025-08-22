@@ -2,12 +2,12 @@
 /** ****************************************************************************
  * Contenu par défaut de la page
  * ****************************************************************************/
-function content(datas) {
+function content(config) {
 
-    let dt = datas;
+    let cf = config;
     let content = `
         <div>
-            <embed class="embed-googlesheet" src="` + dt.config.url.google_info_service + `"/>
+            <embed class="embed-googlesheet" src="` + cf.config.url.google_info_service + `"/>
         </div>
     `;
 
@@ -18,11 +18,11 @@ function content(datas) {
 /** ****************************************************************************
  * Permet de lancer les actions quand click sur l'icon de la home page
  * ****************************************************************************/
-export function action(datas) {
+export function action(config) {
 
     // Mise en place des actions des menu
     $('#emsOpenInfo').on('click', () => {
-        content(datas);
+        content(config);
     }); 
 
 };

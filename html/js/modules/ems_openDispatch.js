@@ -31,6 +31,7 @@ let img             = null;
 let markersLayer    = null;
 let playerDot       = null;
 let scaleBar        = null;
+let actionFocus     = null;
 
 // cache marqueurs
 const markers = new Map(); // id -> {x,y,el,label,active}
@@ -151,6 +152,12 @@ function updateScaleBar() {
     scaleBar.setAttribute('data-label', `${targetMeters} m`);
 }
 
+// Focus et active un marker
+function fMarker(id) {
+    focusMarker(id, { animate: true }); 
+    setActive(id);
+}
+
 // Init image et transform
 function init(datas) {
 
@@ -163,6 +170,7 @@ function init(datas) {
     playerDot       = document.getElementById('playerDot');
     scaleBar        = document.getElementById('scalebar');
     
+
     // Gestion pan (drag)
     viewport.addEventListener('mousedown', (e) => {
         isPanning = true; startX = e.clientX - originX; startY = e.clientY - originY;
@@ -332,36 +340,99 @@ function init(datas) {
 function content(datas) {
 
     let content = `
-        <div>
-            <div id="scalebar"></div>
-            <div id="viewport">
-                <div id="world"> 
-                    <!-- Calque fond -->
-                    <img id="mapImage" src="img/map_satellite.jpg" alt="Dispatch map" />
 
-                    <!-- Calque marqueurs -->
-                    <div id="markers"></div>
-                    
-                    <!-- Curseur joueur optionnel -->
-                    <div id="playerDot" class="dot hidden" title="Toi"></div>
+        <h2 class="mb-4">📋 Dispatch EMS - Interventions</h2>
+        <div class="row">
+
+            <div class="col-5" style="border: 1px solid #666;">
+                <div id="scalebar"></div>
+                <div id="viewport">
+                    <div id="world"> 
+                        <!-- Calque fond -->
+                        <img id="mapImage" src="img/map_satellite.jpg" alt="Dispatch map" />
+
+                        <!-- Calque marqueurs -->
+                        <div id="markers"></div>
+                        
+                        <!-- Curseur joueur optionnel -->
+                        <div id="playerDot" class="dot hidden" title="Toi"></div>
+                    </div>
                 </div>
             </div>
+
+
+            <div  class="col-7" style="border: 1px solid #666;">
+                <span><i>cliquer sur la ligne pour voir l'emplacement</i></span><br/>
+                <span><i class="fas fa-hand-paper text-success mx-2"></i> Prendre / libérer l'intervention</i></span><br/>
+                <span><i class="fas fa-check-circle text-success mx-2"></i> Clôturer l'intervention</i></span><br/>
+                <span><i class="fas fa-trash text-danger mx-2"></i> Supprimer l'intervention</i></span>
+                <table class="table table-hover table-striped align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Agent</th>
+                        <th scope="col" class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="fMarker" id="1">
+                        <td>Médical</td>
+                        <td>Personne inconsciente sur trottoir</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        <td>-</td>
+                        <td class="text-center">
+                        <i class="fas fa-hand-paper text-success mx-2" title="Prendre l'intervention"></i>
+                        <i class="fas fa-check-circle text-success mx-2" title="Clôturer"></i>
+                        <i class="fas fa-trash text-danger mx-2" title="Supprimer"></i>
+                        </td>
+                    </tr>
+                    <tr class="fMarker" id="5">
+                        <td>Accident</td>
+                        <td>Accident chantier</td>
+                        <td><span class="badge bg-primary">Assigned</span></td>
+                        <td>Agent_23</td>
+                        <td class="text-center">
+                        <i class="fas fa-hand-paper text-muted mx-2" title="Déjà pris"></i>
+                        <i class="fas fa-check-circle text-success mx-2" title="Clôturer"></i>
+                        <i class="fas fa-trash text-danger mx-2" title="Supprimer"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     `;
+
     $('#content').html(content);
-    
+     
 }
 
 /** ****************************************************************************
  * Permet de lancer les actions quand click sur l'icon de la home page
  * ****************************************************************************/
-export function action(datas) {
+export function action(config) {
 
     // Mise en place des actions des menu
     $('#openDispatch').on('click', () => {
         
-        content(datas);
-        init(datas);
+        content(config);
+        init(config);
+
+        addMarker({id: 1, x: 800.452758, y: -1008.395630, label: 'appel urgence'});
+        addMarker({id: 5, x: 874.232972, y: 2405.841796, label: 'appel urgence'});
+
+
+        actionFocus     = $('.scalebar');
+        // permet de recentrer sur le marker actif
+        actionFocus.on('click', (e) => {
+            let id = actionFocus.attr("id");
+            console.log('click focu event', id);
+            fMarker(id);
+        });
+
     }); 
 
 };
