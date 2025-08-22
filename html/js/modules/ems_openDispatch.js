@@ -4,10 +4,11 @@
 // === CONFIG CALIBRATION ===
 // Tu dois donner les coordonnées monde (GTA) correspondant au coin HAUT-GAUCHE et BAS-DROIT de ton image.
 // Exemple *fictif* (à remplacer par tes vraies limites) :
-const WORLD_TOP    = 8000;   // Y max
-const WORLD_BOTTOM = -8000;  // Y min
-const WORLD_LEFT   = -8000;  // X min
-const WORLD_RIGHT  = 8000;   // X max
+const WORLD_TOP    = 8409.491;   // Y max
+const WORLD_BOTTOM = -4041.964;  // Y min
+const WORLD_LEFT   = -5720.671;  // X min
+const WORLD_RIGHT  = 6767.207;   // X max
+
 
 // Dimensions en pixels de ton image gtav_satellite.jpg :
 const IMG_WIDTH  = 2048 //8192;   // px
@@ -37,10 +38,6 @@ const markers = new Map(); // id -> {x,y,el,label,active}
 // Applique transform aux calques
 function applyTransform() {
     world.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
-    // const t = `translate(${originX}px, ${originY}px) scale(${scale})`;
-    // img.style.transform = t;
-    // markersLayer.style.transform = t;
-    // playerDot.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
     updateScaleBar();
 }
 
@@ -159,11 +156,12 @@ function init(datas) {
 
     // Éléments DOM
     // const tablet   = document.getElementById('tablet');
-    viewport = document.getElementById('viewport');
-    img      = document.getElementById('mapImage');
-    markersLayer = document.getElementById('markers');
-    playerDot = document.getElementById('playerDot');
-    scaleBar  = document.getElementById('scalebar');
+    viewport        = document.getElementById('viewport');
+    world           = document.getElementById('world');
+    img             = document.getElementById('mapImage');
+    markersLayer    = document.getElementById('markers');
+    playerDot       = document.getElementById('playerDot');
+    scaleBar        = document.getElementById('scalebar');
     
     // Gestion pan (drag)
     viewport.addEventListener('mousedown', (e) => {
@@ -199,6 +197,7 @@ function init(datas) {
         const px = (sx - originX) / scale;
         const py = (sy - originY) / scale;
         const { x, y } = pixelToWorld(px, py);
+        console.log('>>> click map set waypoint px, py=', px, py);
         fetch(`https://${resource}/setWaypoint`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ x, y })
@@ -225,6 +224,96 @@ function init(datas) {
     console.log('>>> set img src width,height=', IMG_WIDTH, IMG_HEIGHT);
     img.width = IMG_WIDTH; 
     img.height = IMG_HEIGHT;
+
+    /** ****************************************************************************
+     * ---- CALIBRATION AIDE AU DEVELOPPEMENT ----
+    * Ci-dessous à mettre en commentaire ne sert qu'à calibrer la carte
+    * Utilisation :
+    * 1. Va te placer au bâtiment A en jeu → /pushpos → clic gauche sur sa position sur la carte NUI.
+    * 2. Va au point B éloigné → /pushpos → clic droit sur la carte NUI.
+    * 3. /dumpCalibration → copie/colle les valeurs dans le script (WORLD_...) 
+    * Tu as maintenant calib.A et calib.B (x,y et px,py) dans la console NUI.
+    * ATTENTION : Ne jamais fermer la carte de la tablette pour ce déplacer utilier les /tp 
+    * avec les coordonnées que vous aurait choisie pour A et B.
+    * ****************************************************************************/   
+    // stocke deux échantillons
+    // let calib = { A: null, B: null };
+
+    // // utilité : obtenir (px,py) image à partir d'un clic
+    // function screenToImagePx(sx, sy) {
+    // const rect = viewport.getBoundingClientRect();
+    // const ex = sx - rect.left; // px écran dans le viewport
+    // const ey = sy - rect.top;
+    // const px = (ex - originX) / scale;
+    // const py = (ey - originY) / scale;
+    // return { px, py };
+    // }
+
+    // // CLIQUE GAUCHE = point A, CLIQUE DROIT = point B (exemple)
+    // viewport.addEventListener('click', (e) => {
+    // const { px, py } = screenToImagePx(e.clientX, e.clientY);
+    // // Renseigne ici xA,yA d’après ta position en jeu (ou via un prompt)
+    // // Pour un vrai workflow, envoie x,y depuis client.lua -> NUI juste avant de cliquer.
+    // const x = window.lastWorldX ?? 0;
+    // const y = window.lastWorldY ?? 0;
+    // calib.A = { x, y, px, py };
+    // console.log('A =', JSON.stringify(calib.A));
+    // });
+
+    // viewport.addEventListener('contextmenu', (e) => {
+    // e.preventDefault();
+    // const { px, py } = screenToImagePx(e.clientX, e.clientY);
+    // const x = window.lastWorldX ?? 0;
+    // const y = window.lastWorldY ?? 0;
+    // calib.B = { x, y, px, py };
+    // console.log('B =', JSON.stringify(calib.B));
+    // });
+
+    // function computeBoundsFromAB(A, B, IMG_WIDTH, IMG_HEIGHT) {
+    //     const bx = (B.x - A.x) / (B.px - A.px);
+    //     const ax = A.x - bx * A.px;
+
+    //     const by = (B.y - A.y) / (B.py - A.py);
+    //     const ay = A.y - by * A.py;
+
+    //     const WORLD_LEFT   = ax;
+    //     const WORLD_RIGHT  = ax + bx * IMG_WIDTH;
+    //     const WORLD_TOP    = ay;
+    //     const WORLD_BOTTOM = ay + by * IMG_HEIGHT;
+
+    //     return { ax, bx, ay, by, WORLD_LEFT, WORLD_RIGHT, WORLD_TOP, WORLD_BOTTOM };
+    // }
+
+    // // Quand A et B sont prêts :
+    // function dumpCalibration() {
+    //     if (!calib.A || !calib.B) { console.warn('A/B manquants'); return; }
+    //     const out = computeBoundsFromAB(calib.A, calib.B, IMG_WIDTH, IMG_HEIGHT);
+    //     console.table(out);
+    //     console.log(`
+    //     const WORLD_TOP = ${out.WORLD_TOP.toFixed(3)};
+    //     const WORLD_BOTTOM = ${out.WORLD_BOTTOM.toFixed(3)};
+    //     const WORLD_LEFT = ${out.WORLD_LEFT.toFixed(3)};
+    //     const WORLD_RIGHT = ${out.WORLD_RIGHT.toFixed(3)};
+    //     `);
+    // }
+    
+    // window.addEventListener('message', (ev) => {
+    //     const { action, x, y } = ev.data || {};
+    //     if (action === 'setLastWorldPos') {
+    //         window.lastWorldX = x;
+    //         window.lastWorldY = y;
+    //         console.log('Position monde reçue pour le prochain clic:', x, y);
+    //     }
+    //     if (action === 'dumpCalibration') {
+    //         dumpCalibration()
+    //     }
+    // });
+
+    /** ****************************************************************************
+     * ---- FIN : CALIBRATION AIDE AU DEVELOPPEMENT ----
+    * ****************************************************************************/   
+ 
+
 }
 
 /** ****************************************************************************
@@ -256,7 +345,21 @@ function content(datas) {
     console.log('>>>return content map');
     $('#content').html(content);
     setTimeout(() => {
-        setPlayerPos(-1119.375854, 1739.591186);
+        
+        //setPlayerPos(261.758240, 6965.314454);
+        let marker = {id : 11, x : 261.758240, y : 6965.314454, label : 'appel urgence'};
+        addMarker(marker);
+        setActive(11);
+        focusMarker(11, { animate: true });
+        //removeMarker(id);
+        //setActive(id);
+        //focusMarker(id, opts = { animate: true });
+
+    }, 3000);
+    setTimeout(() => {
+        
+        removeMarker(11);
+
     }, 6000);
 }
 

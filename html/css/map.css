@@ -1,24 +1,25 @@
 
 #viewport {
   position: relative;
-  flex: 1; background: #0b0d13;
+  flex: 1; background: #143d6b;
   overflow: hidden; cursor: grab;
   width: 45vh;
   height: 60vh;
 }
 
-/* Le fond + calques se déplacent/zooment ensemble via transform du wrapper */
-#mapImage {
-  /* position: absolute;  */
+#world, #mapImage, #markers, #playerDot {
+  position: absolute;
   left: 0; top: 0;
-  transform-origin: 0 0;
-  user-select: none; pointer-events: none;
-  image-rendering: auto;
+  transform-origin: 0 0;      /* très important */
 }
 
-#markers, #playerDot {
-  position: absolute; left: 0; top: 0;
+/* Le fond + calques se déplacent/zooment ensemble via transform du wrapper */
+#mapImage {
+  left: 0; top: 0;
   transform-origin: 0 0;
+  user-select: none; 
+  pointer-events: none;
+  image-rendering: auto;
 }
 
 .marker {

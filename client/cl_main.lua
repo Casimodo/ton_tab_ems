@@ -88,3 +88,17 @@ RegisterNUICallback('close', function(data, cb)
     currentTablet = nil
     cb('ok')
 end)
+
+-- /** ****************************************************************************
+--  * ---- CALIBRATION AIDE AU DEVELOPPEMENT ----
+--  * Ci-dessous à mettre en commentaire ne sert qu'à calibrer la carte
+--  * Utilisation :  Voir dans le ems_openDispatch.js la partie à documenter
+--  * *****************************************************************************/
+-- RegisterCommand('pushpos', function()
+--   local p = GetEntityCoords(PlayerPedId())
+--   SendNUIMessage({ action = "setLastWorldPos", x = p.x + 0.0, y = p.y + 0.0 })
+-- end, false)
+-- RegisterCommand('dumpCalibration', function()
+--   local p = GetEntityCoords(PlayerPedId())
+--   SendNUIMessage({ action = "dumpCalibration"})
+-- end, false)
