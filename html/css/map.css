@@ -3,11 +3,14 @@
   position: relative;
   flex: 1; background: #0b0d13;
   overflow: hidden; cursor: grab;
+  width: 45vh;
+  height: 60vh;
 }
 
 /* Le fond + calques se déplacent/zooment ensemble via transform du wrapper */
 #mapImage {
-  position: absolute; left: 0; top: 0;
+  /* position: absolute;  */
+  left: 0; top: 0;
   transform-origin: 0 0;
   user-select: none; pointer-events: none;
   image-rendering: auto;

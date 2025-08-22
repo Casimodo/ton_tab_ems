@@ -18,13 +18,14 @@ const IMG_HEIGHT = 2048 //8192;   // px
 const resource = GetParentResourceName ? GetParentResourceName() : 'ton_tab_ems';
 
 // état pan/zoom
-let scale = 0.20;               // zoom initial (1 = 100% pixels)
+let scale = 0.80;               // zoom initial (1 = 100% pixels)
 let originX = 0;                // translation écran (px) du coin image (0,0)
 let originY = 0;
 let isPanning = false;
 let startX, startY;
 
 let viewport        = null;
+let world           = null;
 let img             = null;
 let markersLayer    = null;
 let playerDot       = null;
@@ -35,10 +36,11 @@ const markers = new Map(); // id -> {x,y,el,label,active}
 
 // Applique transform aux calques
 function applyTransform() {
-    const t = `translate(${originX}px, ${originY}px) scale(${scale})`;
-    img.style.transform = t;
-    markersLayer.style.transform = t;
-    playerDot.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
+    world.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
+    // const t = `translate(${originX}px, ${originY}px) scale(${scale})`;
+    // img.style.transform = t;
+    // markersLayer.style.transform = t;
+    // playerDot.style.transform = `translate(${originX}px, ${originY}px) scale(${scale})`;
     updateScaleBar();
 }
 
@@ -238,20 +240,24 @@ function content(datas) {
         <div>
             <div id="scalebar"></div>
             <div id="viewport">
-                <!-- Calque fond -->
-                <img id="mapImage" src="img/map_satellite.jpg" alt="Dispatch map" />
+                <div id="world"> 
+                    <!-- Calque fond -->
+                    <img id="mapImage" src="img/map_satellite.jpg" alt="Dispatch map" />
 
-                <!-- Calque marqueurs -->
-                <div id="markers"></div>
-                
-                <!-- Curseur joueur optionnel -->
-                <div id="playerDot" class="dot hidden" title="Toi"></div>
+                    <!-- Calque marqueurs -->
+                    <div id="markers"></div>
+                    
+                    <!-- Curseur joueur optionnel -->
+                    <div id="playerDot" class="dot hidden" title="Toi"></div>
+                </div>
             </div>
         </div>
     `;
     console.log('>>>return content map');
     $('#content').html(content);
-
+    setTimeout(() => {
+        setPlayerPos(-1119.375854, 1739.591186);
+    }, 6000);
 }
 
 /** ****************************************************************************
