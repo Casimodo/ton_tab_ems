@@ -1,3 +1,5 @@
+fk = nil
+
 function GetFrameworkObject()
     local object = nil
     if not Config.frameworkObject then
@@ -22,3 +24,14 @@ function GetFrameworkObject()
 
     return object
 end
+
+Citizen.CreateThread(function()
+    fk = GetFrameworkObject() 
+      
+    if Config.framework == 'esx' then 
+        while fk.GetPlayerData().job == nil do
+            Citizen.Wait(10)
+        end
+        PlayerData = fk.GetPlayerData()
+    end
+end)

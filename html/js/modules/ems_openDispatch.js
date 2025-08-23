@@ -441,22 +441,28 @@ export function action(config) {
     // Mise en place des actions des menu
     $('#openDispatch').on('click', () => {
 
+        init(config);
+        
         fetch(`https://${resource}/dispatch_get`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json; charset=UTF-8',},
             body: "",
         }).then(resp => resp.json()).then(resp => {
-            console.log('Dispatch EMS', resp);
-            
+            console.log('Dispatch EMS', JSON.stringify(resp));
+            let datas = resp;
+            content(config, datas, () => {
+                 
+
+                datas.forEach((dt, index) => {
+                    let location = dt.location;
+                    let coord = {x : location[0], y : location[1]};
+                    print('Coordonnées intervention', coord);
+                    //addMarker({id: dt.id, x: 800.452758, y: -1008.395630, label: 'appel urgence'});
+                });
+
+            });    
         });
         
-        content(config, () => {
-            init(config);
-
-            addMarker({id: 1, x: 800.452758, y: -1008.395630, label: 'appel urgence'});
-            addMarker({id: 5, x: 874.232972, y: 2405.841796, label: 'appel urgence'});
-
-        });
 
     }); 
 

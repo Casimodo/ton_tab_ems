@@ -9,19 +9,20 @@ author "tontonCasi"
 version "1.0.0"
 
 client_script {
-  	"client/*.lua",
+    'GetFrameworkObject.lua',
+  	'client/*.lua'
 }
 
 server_script {
 	'@oxmysql/lib/MySQL.lua',
-	"server/*.lua",
+    'GetFrameworkObject.lua',
+	'server/*.lua'
 }
 
 shared_script {
     '@ox_lib/init.lua',
 	'@es_extended/imports.lua',
-    'shared/GetFrameworkObject.lua',
-	'shared/config.lua',
+	'shared/config.lua'
 }
 
 ui_page 'html/index.html'
@@ -32,7 +33,7 @@ files {
 	'html/img/*',
     'html/external/js/*.js',
     'html/external/css/*.css',
-    'html/js/modules/*',
+    'html/js/modules/*'
 }
 
 dependencies {

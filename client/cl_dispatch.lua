@@ -8,12 +8,9 @@ RegisterNUICallback('dispatch_get', function(data, cb)
     --     cb({dossiers = res, amendes = amendesList})
     -- end, data)
     print("cl_dispatch - dispatch_get")
-    framework.TriggerServerCallback('ton_tab_ems:getDispatch', function(data)
-        print("cl_dispatch - dispatch_send")
-        -- SendNUIMessage({
-        --     type = "AWAITING_DATA",
-        --     sqldata = data
-        -- })
+    fk.TriggerServerCallback('ton_tab_ems:get_dispatch', function(data)
+        print("cl_dispatch - dispatch_send" .. json.encode(data))
+        cb(data)
     end)
 
 end)
