@@ -1,11 +1,16 @@
 import * as lib from './modules/lib.js';
-//import * as map from './modules/map.js';
 import * as profil from './modules/profil.js';
 import * as emsOpenInfo from './modules/ems_openInfo.js';
 import * as emsOpenDispatch from './modules/ems_openDispatch.js';
 
 let bsTooltips = [];                // instances de tooltips (BS5)
 
+
+// Focus et active un marker
+function fMarker(id) {
+    emsOpenDispatch.focusMarker(id, { animate: true }); 
+    emsOpenDispatch.setActive(id);
+}
 
 /** ****************************************************************************
  * Pour afficher le menu HOME
@@ -59,7 +64,6 @@ function home(datas) {
     // Mise en place des actions des menu
     profil.action(datas);
     emsOpenInfo.action(datas);
-    console.log('>>>emsOpenDispatch');
     emsOpenDispatch.action(datas);
 
     // Les petits raccourcis client

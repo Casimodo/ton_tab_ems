@@ -1,3 +1,5 @@
+import $ from '../jquery-shim.js';
+
 /** ****************************************************************************
  * Debut system map
  * ****************************************************************************/
@@ -103,6 +105,7 @@ function removeMarker(id) {
 
 // Active visuellement un marker
 function setActive(id) {
+    console.log('>>> Set active', id);
     markers.forEach((it) => it.el.classList.remove('active'));
     const item = markers.get(id);
     if (item) item.el.classList.add('active');
@@ -110,6 +113,7 @@ function setActive(id) {
 
 // Recentrer/zoomer sur un marker
 function focusMarker(id, opts = {}) {
+    console.log('>>> Set focus', id);
     const item = markers.get(id);
     if (!item) return;
     const { px, py } = worldToPixel(item.x, item.y);
@@ -152,17 +156,10 @@ function updateScaleBar() {
     scaleBar.setAttribute('data-label', `${targetMeters} m`);
 }
 
-// Focus et active un marker
-function fMarker(id) {
-    focusMarker(id, { animate: true }); 
-    setActive(id);
-}
-
 // Init image et transform
 function init(datas) {
 
     // Éléments DOM
-    // const tablet   = document.getElementById('tablet');
     viewport        = document.getElementById('viewport');
     world           = document.getElementById('world');
     img             = document.getElementById('mapImage');
@@ -317,9 +314,34 @@ function init(datas) {
     /** ****************************************************************************
      * ---- FIN : CALIBRATION AIDE AU DEVELOPPEMENT ----
     * ****************************************************************************/   
- 
+
+
+     /**
+      * Action click sur la liste
+      */
+    $('.fMarker').on('click', (e) => {
+        
+        let id = parseInt(e.currentTarget.getAttribute('data-id'));
+        setActive(id);
+        focusMarker(id, { animate: true });
+
+        // fetch(`https://${resource}/find_marker`, {
+        //         method: 'POST',
+        //         headers: {'Content-Type': 'application/json; charset=UTF-8',},
+        //         body: JSON.stringify(id),
+        //     }).then(resp => resp.json()).then(resp => {
+                
+        //         let marker_id = parseInt(resp.marker_id, 10);
+        //         console.log('Marker trouvé', marker_id);
+        //         setActive(marker_id);
+        //         focusMarker(marker_id, { animate: true });
+        //     });
+    });
 
 }
+
+
+
 /** ****************************************************************************
  * Fin system map
  * 
@@ -337,14 +359,14 @@ function init(datas) {
 /** ****************************************************************************
  * Contenu par défaut de la page
  * ****************************************************************************/
-function content(datas) {
+function content(datas, callback) {
 
     let content = `
 
         <h2 class="mb-4">📋 Dispatch EMS - Interventions</h2>
         <div class="row">
 
-            <div class="col-5" style="border: 1px solid #666;">
+            <div class="col-5">
                 <div id="scalebar"></div>
                 <div id="viewport">
                     <div id="world"> 
@@ -361,7 +383,7 @@ function content(datas) {
             </div>
 
 
-            <div  class="col-7" style="border: 1px solid #666;">
+            <div  class="col-7">
                 <span><i>cliquer sur la ligne pour voir l'emplacement</i></span><br/>
                 <span><i class="fas fa-hand-paper text-success mx-2"></i> Prendre / libérer l'intervention</i></span><br/>
                 <span><i class="fas fa-check-circle text-success mx-2"></i> Clôturer l'intervention</i></span><br/>
@@ -377,7 +399,7 @@ function content(datas) {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="fMarker" id="1">
+                    <tr class="fMarker" data-id="1">
                         <td>Médical</td>
                         <td>Personne inconsciente sur trottoir</td>
                         <td><span class="badge bg-warning text-dark">Pending</span></td>
@@ -388,7 +410,7 @@ function content(datas) {
                         <i class="fas fa-trash text-danger mx-2" title="Supprimer"></i>
                         </td>
                     </tr>
-                    <tr class="fMarker" id="5">
+                    <tr class="fMarker" data-id="5">
                         <td>Accident</td>
                         <td>Accident chantier</td>
                         <td><span class="badge bg-primary">Assigned</span></td>
@@ -407,6 +429,7 @@ function content(datas) {
     `;
 
     $('#content').html(content);
+    callback();
      
 }
 
@@ -417,20 +440,22 @@ export function action(config) {
 
     // Mise en place des actions des menu
     $('#openDispatch').on('click', () => {
+
+        fetch(`https://${resource}/dispatch_get`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8',},
+            body: "",
+        }).then(resp => resp.json()).then(resp => {
+            console.log('Dispatch EMS', resp);
+            
+        });
         
-        content(config);
-        init(config);
+        content(config, () => {
+            init(config);
 
-        addMarker({id: 1, x: 800.452758, y: -1008.395630, label: 'appel urgence'});
-        addMarker({id: 5, x: 874.232972, y: 2405.841796, label: 'appel urgence'});
+            addMarker({id: 1, x: 800.452758, y: -1008.395630, label: 'appel urgence'});
+            addMarker({id: 5, x: 874.232972, y: 2405.841796, label: 'appel urgence'});
 
-
-        actionFocus     = $('.scalebar');
-        // permet de recentrer sur le marker actif
-        actionFocus.on('click', (e) => {
-            let id = actionFocus.attr("id");
-            console.log('click focu event', id);
-            fMarker(id);
         });
 
     }); 

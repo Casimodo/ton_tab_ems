@@ -1,3 +1,16 @@
+framework = nil
+
+Citizen.CreateThread(function()
+    framework = GetFrameworkObject() 
+      
+    if Config.frameworkObject == 'esx' then 
+        while framework.GetPlayerData().job == nil do
+            Citizen.Wait(10)
+        end
+        PlayerData = framework.GetPlayerData()
+    end
+end)
+
 
 local function getDatasPlayer(source)
     local xPlayer = ESX.GetPlayerFromId(source)
