@@ -4,7 +4,7 @@ CREATE TABLE ems_dispatch (
     type VARCHAR(50) NOT NULL,                  -- Type d'intervention (accident, feu, médical, etc.)
     description TEXT,                           -- Description libre
     location VARCHAR(255) NOT NULL,             -- Localisation (coordonnées, adresse, zone RP...)
-    status ENUM('pending', 'assigned', 'on_scene', 'closed') DEFAULT 'pending', -- Statut
+    status ENUM('en attente','attribué','traité') DEFAULT 'en attente', -- Statut
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Création
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- MAJ auto
 );

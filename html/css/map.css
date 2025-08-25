@@ -28,11 +28,27 @@
 
 .marker {
   position: absolute; width: 14px; height: 14px; border-radius: 50%;
-  background: #eab308; border: 2px solid #111; box-shadow: 0 0 0 2px #0006;
+  background: #ea0808; border: 2px solid #111; box-shadow: 0 0 0 2px #0006;
   transform: translate(-50%, -100%); /* pointe sur le “pied” */
   cursor: pointer;
 }
-.marker.active { outline: 2px solid #fff; }
+.marker.active { 
+  outline: 2px solid #fff; 
+  animation: pulse 1.5s infinite;
+}
+
+/* Animation de pulsation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
+  }
+  50% {
+    box-shadow: 0 0 24px 12px rgba(234, 8, 8, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
+  }
+}
 
 .dot {
   width: 12px; height: 12px; border-radius: 50%;

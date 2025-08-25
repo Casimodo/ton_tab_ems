@@ -34,6 +34,7 @@ let markersLayer    = null;
 let playerDot       = null;
 let scaleBar        = null;
 let actionFocus     = null;
+let config          = null;    
 
 // cache marqueurs
 const markers = new Map(); // id -> {x,y,el,label,active}
@@ -79,9 +80,9 @@ function addMarker(m) {
         el.className = 'marker';
         el.title = m.label || m.id;
         el.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        focusMarker(m.id, { animate: true });
-        setActive(m.id);
+            ev.stopPropagation();
+            focusMarker(m.id, { animate: true });
+            setActive(m.id);
         });
         markersLayer.appendChild(el);
         item = { ...m, el, active: false };
@@ -105,7 +106,6 @@ function removeMarker(id) {
 
 // Active visuellement un marker
 function setActive(id) {
-    console.log('>>> Set active', id);
     markers.forEach((it) => it.el.classList.remove('active'));
     const item = markers.get(id);
     if (item) item.el.classList.add('active');
@@ -113,7 +113,6 @@ function setActive(id) {
 
 // Recentrer/zoomer sur un marker
 function focusMarker(id, opts = {}) {
-    console.log('>>> Set focus', id);
     const item = markers.get(id);
     if (!item) return;
     const { px, py } = worldToPixel(item.x, item.y);
@@ -324,19 +323,27 @@ function init(datas) {
         let id = parseInt(e.currentTarget.getAttribute('data-id'));
         setActive(id);
         focusMarker(id, { animate: true });
-
-        // fetch(`https://${resource}/find_marker`, {
-        //         method: 'POST',
-        //         headers: {'Content-Type': 'application/json; charset=UTF-8',},
-        //         body: JSON.stringify(id),
-        //     }).then(resp => resp.json()).then(resp => {
-                
-        //         let marker_id = parseInt(resp.marker_id, 10);
-        //         console.log('Marker trouvé', marker_id);
-        //         setActive(marker_id);
-        //         focusMarker(marker_id, { animate: true });
-        //     });
     });
+
+    /**
+     * Action prendre l'intervention
+    */
+   $('.actionPrendre').on('click', (e) => {
+        
+        let id = parseInt(e.currentTarget.getAttribute('data-id'));
+        let status = parseInt(e.currentTarget.getAttribute('data-status'));
+
+        fetch(`https://${resource}/dispatch_get_inter`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8',},
+            body: JSON.stringify({ id : id, status : status }),
+        }).then(resp => resp.json()).then(resp => {
+            
+            refresh();
+
+        });
+
+   });
 
 }
 
@@ -359,7 +366,24 @@ function init(datas) {
 /** ****************************************************************************
  * Contenu par défaut de la page
  * ****************************************************************************/
-function content(datas, callback) {
+function content(config, datas, callback) {
+
+    let details = '';
+    datas.forEach((dt, index) => {
+        details += `
+            <tr class="fMarker" data-id="${dt.id}">
+                <td><span class="badge bg-warning text-dark">${dt.status}</span></td>
+                <td>${dt.description}</td>
+                <td>-</td>
+                <td>${dt.heure_minute}</td>
+                <td class="text-center">
+                <i class="fas fa-hand-paper text-success mx-2 actionPrendre" title="Prendre l'intervention" data-id="${dt.id}" data-status="${dt.status}"></i>
+                <i class="fas fa-check-circle text-success mx-2 actionCloturer" title="Clôturer" data-id="${dt.id}"></i>
+                <i class="fas fa-trash text-danger mx-2 actionSupprimer" title="Supprimer" data-id="${dt.id}"></i>
+                </td>
+            </tr>
+        `;
+    });
 
     let content = `
 
@@ -391,36 +415,15 @@ function content(datas, callback) {
                 <table class="table table-hover table-striped align-middle">
                     <thead class="table-dark">
                     <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Description</th>
                         <th scope="col">Statut</th>
+                        <th scope="col">Description</th>                        
                         <th scope="col">Agent</th>
+                        <th scope="col">Heure</th>
                         <th scope="col" class="text-center">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="fMarker" data-id="1">
-                        <td>Médical</td>
-                        <td>Personne inconsciente sur trottoir</td>
-                        <td><span class="badge bg-warning text-dark">Pending</span></td>
-                        <td>-</td>
-                        <td class="text-center">
-                        <i class="fas fa-hand-paper text-success mx-2" title="Prendre l'intervention"></i>
-                        <i class="fas fa-check-circle text-success mx-2" title="Clôturer"></i>
-                        <i class="fas fa-trash text-danger mx-2" title="Supprimer"></i>
-                        </td>
-                    </tr>
-                    <tr class="fMarker" data-id="5">
-                        <td>Accident</td>
-                        <td>Accident chantier</td>
-                        <td><span class="badge bg-primary">Assigned</span></td>
-                        <td>Agent_23</td>
-                        <td class="text-center">
-                        <i class="fas fa-hand-paper text-muted mx-2" title="Déjà pris"></i>
-                        <i class="fas fa-check-circle text-success mx-2" title="Clôturer"></i>
-                        <i class="fas fa-trash text-danger mx-2" title="Supprimer"></i>
-                        </td>
-                    </tr>
+                        ${details}
                     </tbody>
                 </table>
             </div>
@@ -434,35 +437,50 @@ function content(datas, callback) {
 }
 
 /** ****************************************************************************
+ * Permet d'actualiser données
+ * ****************************************************************************/
+function refresh() {
+
+    // Recherche des interventions
+    fetch(`https://${resource}/dispatch_get`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json; charset=UTF-8',},
+        body: "",
+    }).then(resp => resp.json()).then(resp => {
+        
+        let datas = resp;
+        content(config, datas, () => {
+                
+            init(config);   // Initialisation de la map
+
+            datas.forEach((dt, index) => {
+                removeMarker(dt.id); // On supprime les anciens markers
+
+                let coord = JSON.parse(dt.location);
+                //let coord = {x : location[0], y : location[1]};
+                console.log(`Coordonnées intervention x:${coord.x} y:${coord.y} id:${dt.id} desc:${dt.description}`);
+                addMarker({id: dt.id, x: coord.x, y: coord.y, label: dt.description});
+
+            });
+
+        });    
+    });
+
+}
+
+
+/** ****************************************************************************
  * Permet de lancer les actions quand click sur l'icon de la home page
  * ****************************************************************************/
+let oldMarkers = [];
 export function action(config) {
+
+    config = config || {};
 
     // Mise en place des actions des menu
     $('#openDispatch').on('click', () => {
 
-        init(config);
-        
-        fetch(`https://${resource}/dispatch_get`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json; charset=UTF-8',},
-            body: "",
-        }).then(resp => resp.json()).then(resp => {
-            console.log('Dispatch EMS', JSON.stringify(resp));
-            let datas = resp;
-            content(config, datas, () => {
-                 
-
-                datas.forEach((dt, index) => {
-                    let location = dt.location;
-                    let coord = {x : location[0], y : location[1]};
-                    print('Coordonnées intervention', coord);
-                    //addMarker({id: dt.id, x: 800.452758, y: -1008.395630, label: 'appel urgence'});
-                });
-
-            });    
-        });
-        
+        refresh();        
 
     }); 
 

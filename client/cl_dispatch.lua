@@ -1,16 +1,24 @@
-
+-- *******************************************************
+-- ** Renvoi le resultat des données du dispatch EMS   
+-- *******************************************************
 RegisterNUICallback('dispatch_get', function(data, cb)
 
-    -- id = json.encode(data);
-    -- print("cl find_marker", id)
-    -- cb({marker_id = id})
-    -- ESX.TriggerServerCallback('ton_tablette:police_dossier_find', function(res, amendesList)
-    --     cb({dossiers = res, amendes = amendesList})
-    -- end, data)
-    print("cl_dispatch - dispatch_get")
     fk.TriggerServerCallback('ton_tab_ems:get_dispatch', function(data)
-        print("cl_dispatch - dispatch_send" .. json.encode(data))
+        
         cb(data)
-    end)
+    end, nil)
+
+end)
+
+-- *******************************************************
+-- ** Mise à jour du statut d'une intervention          
+-- *******************************************************
+RegisterNUICallback('dispatch_get_inter', function(data, cb)
+
+    print('>>>>' .. json.encode(data))
+    local dt = json.decode(data)
+    fk.TriggerServerCallback('ton_tab_ems:set_dispatch_inter', function(data)
+        cb(nil)
+    end, dt)
 
 end)
