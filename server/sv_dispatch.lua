@@ -21,20 +21,20 @@ end)
 -- ** Mise à jour du statut d'une intervention          
 -- *******************************************************
 fk.RegisterServerCallback('ton_tab_ems:set_dispatch_inter', function(source, cb, dt)
-    local _src = source
+
     local status = "en attente";
-    print('>>>>' .. json.decode(dt))
-    if dt.status == "traité" then cb(nil); return end
+    print('>>>>' .. json.encode(dt))
+    if dt.status == "traité" then cb(true); return end
     if dt.status == "en attente" then status = "attribué" end
     if dt.status == "attribué" then status = "en attente" end
 
-    local QUERY = "SELECT ton_ems_dispatch SET status = @status WHERE id = @id;"
+    local QUERY = "UPDATE ton_ems_dispatch SET status = @status WHERE id = @id;"
     MySQL.query(QUERY, {
         ['@status'] = status,
         ['@id'] = dt.id
     }, function(result)
 
-        cb(nil)
+        cb(true)
 
     end)
 end)

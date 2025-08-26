@@ -3,9 +3,8 @@
 -- *******************************************************
 RegisterNUICallback('dispatch_get', function(data, cb)
 
-    fk.TriggerServerCallback('ton_tab_ems:get_dispatch', function(data)
-        
-        cb(data)
+    fk.TriggerServerCallback('ton_tab_ems:get_dispatch', function(result)
+        cb(result)
     end, nil)
 
 end)
@@ -16,9 +15,9 @@ end)
 RegisterNUICallback('dispatch_get_inter', function(data, cb)
 
     print('>>>>' .. json.encode(data))
-    local dt = json.decode(data)
-    fk.TriggerServerCallback('ton_tab_ems:set_dispatch_inter', function(data)
-        cb(nil)
+    local dt = data
+    fk.TriggerServerCallback('ton_tab_ems:set_dispatch_inter', function(result)
+        cb(result)
     end, dt)
 
 end)

@@ -35,6 +35,7 @@ let playerDot       = null;
 let scaleBar        = null;
 let actionFocus     = null;
 let config          = null;    
+let lastFocusId     = null;    
 
 // cache marqueurs
 const markers = new Map(); // id -> {x,y,el,label,active}
@@ -321,6 +322,7 @@ function init(datas) {
     $('.fMarker').on('click', (e) => {
         
         let id = parseInt(e.currentTarget.getAttribute('data-id'));
+        lastFocusId = id;
         setActive(id);
         focusMarker(id, { animate: true });
     });
@@ -328,22 +330,32 @@ function init(datas) {
     /**
      * Action prendre l'intervention
     */
-   $('.actionPrendre').on('click', (e) => {
+    $('.actionPrendre').on('click', (e) => {
         
         let id = parseInt(e.currentTarget.getAttribute('data-id'));
-        let status = parseInt(e.currentTarget.getAttribute('data-status'));
+        let status = e.currentTarget.getAttribute('data-status');
+        let dtBody = JSON.stringify({ id : id, status : status });
+        lastFocusId = id;
 
         fetch(`https://${resource}/dispatch_get_inter`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json; charset=UTF-8',},
-            body: JSON.stringify({ id : id, status : status }),
+            body: dtBody,
         }).then(resp => resp.json()).then(resp => {
             
             refresh();
 
         });
 
-   });
+    });
+
+    /**
+     * Ce remet sur le dernier marker focus
+    */
+    if (lastFocusId != null) {
+        focusMarker(lastFocusId, { animate: true });
+        setActive(lastFocusId);
+    }
 
 }
 
@@ -370,9 +382,14 @@ function content(config, datas, callback) {
 
     let details = '';
     datas.forEach((dt, index) => {
+        let classStatus = (dt.status == 'en attente') ? 'eti-enattente' :
+                          (dt.status == 'attribué') ? 'eti-attribue' : 'eti-traite' ;
+
+        let classTrSelect = (lastFocusId == dt.id) ? 'trSelect' : '' ;
+
         details += `
-            <tr class="fMarker" data-id="${dt.id}">
-                <td><span class="badge bg-warning text-dark">${dt.status}</span></td>
+            <tr class="fMarker ${classTrSelect}" data-id="${dt.id}">
+                <td><span class="badge ${classStatus} text-dark">${dt.status}</span></td>
                 <td>${dt.description}</td>
                 <td>-</td>
                 <td>${dt.heure_minute}</td>
@@ -450,9 +467,9 @@ function refresh() {
         
         let datas = resp;
         content(config, datas, () => {
-                
-            init(config);   // Initialisation de la map
-
+            
+            init(config);   // Initialisation de la map si pas encore faite
+            
             datas.forEach((dt, index) => {
                 removeMarker(dt.id); // On supprime les anciens markers
 

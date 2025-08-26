@@ -37,6 +37,20 @@
   animation: pulse 1.5s infinite;
 }
 
+.eti-enattente {
+  background: #ea0808;
+}
+.eti-attribue {
+  background: #089bea;
+}
+.eti-traite {
+  background: #17ea08;
+}
+.trSelect {
+  border: solid, 2px, #17ea08;
+}
+
+
 /* Animation de pulsation */
 @keyframes pulse {
   0% {
