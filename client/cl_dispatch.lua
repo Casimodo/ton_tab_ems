@@ -25,6 +25,22 @@ end)
 RegisterNUICallback('dispatch_get_inter', function(data, cb)
 
     local dt = data
+    -- Si c'est ce statut alors ont met le GPS pour le client
+    --if dt.status == "en attente" then
+        -- local ped = PlayerPedId()
+        -- local coords = GetEntityCoords(ped)
+
+        -- -- Création du blip
+        -- local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+        -- SetBlipSprite(blip, 280)         -- Icône (ici un petit drapeau)
+        -- SetBlipColour(blip, 1)           -- Couleur (1 = rouge)
+        -- SetBlipScale(blip, 1.0)          -- Taille
+
+        -- -- Active le tracé GPS vers le blip
+        -- SetBlipRoute(blip, true)
+        -- SetBlipRouteColour(blip, 1)      -- Même couleur que le blip
+    --end
+    
     fk.TriggerServerCallback('ton_tab_ems:set_dispatch_inter', function(result)
         cb(result)
     end, dt)
@@ -36,7 +52,6 @@ end)
 -- *******************************************************
 RegisterNUICallback('get_unity', function(data, cb)
 
-    print(">>>> call ton_tab_ems:unity_get")
     fk.TriggerServerCallback('ton_tab_ems:get_unity', function(result)
         cb(result)
     end)

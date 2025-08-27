@@ -150,10 +150,10 @@ function removeMarker(id) {
 function removeAllUnity() {
     unity.forEach((it) => {
         let id = it.id;
-        const item = markers.get(id);
+        const item = unity.get(id);
         if (item) {
             item.el.remove();
-            markers.delete(id);
+            unity.delete(id);
         }
     });
 }
@@ -467,7 +467,6 @@ function init(datas) {
     */
     $('#actionUnity').on('click', (e) => {
         
-        console.log(">>> Get all unity");
         fetch(`https://${resource}/get_unity`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json; charset=UTF-8',},
@@ -625,7 +624,6 @@ function refresh() {
 
                 let coord = JSON.parse(dt.location);
                 //let coord = {x : location[0], y : location[1]};
-                console.log(`Coordonnées intervention x:${coord.x} y:${coord.y} id:${dt.id} desc:${dt.description}`);
                 addMarker({id: dt.id, x: coord.x, y: coord.y, label: dt.description});
 
             });
