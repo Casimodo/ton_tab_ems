@@ -123,11 +123,11 @@ function addUnity(m) {
         el.id = m.id;
         el.addEventListener('click', (ev) => {
             ev.stopPropagation();
-            // focusMarker(m.id, { animate: true });
-            // setActive(m.id);
+            setActiveUnity(m.id);
+            $("#detailUnite").html("" + m.label);
         });
         unityLayer.appendChild(el);
-        item = { ...m, el, active: true };
+        item = { ...m, el, active: false };
         unity.set(m.id, item);
     } else {
         item.x = m.x; item.y = m.y; item.label = m.label || item.label;
@@ -162,6 +162,13 @@ function removeAllUnity() {
 function setActive(id) {
     markers.forEach((it) => it.el.classList.remove('active'));
     const item = markers.get(id);
+    if (item) item.el.classList.add('active');
+}
+
+// Active visuellement un marker unity
+function setActiveUnity(id) {
+    unity.forEach((it) => it.el.classList.remove('active'));
+    const item = unity.get(id);
     if (item) item.el.classList.add('active');
 }
 
@@ -466,12 +473,10 @@ function init(datas) {
             headers: {'Content-Type': 'application/json; charset=UTF-8',},
             body: JSON.stringify({}),
         }).then(resp => resp.json()).then(resp => {
-            console.log(`>>>A>`, JSON.stringify(resp));
             removeAllUnity();
             resp.forEach((dt, index) => {
                 let coord = dt.coords;
                 let dtUnity = {id : dt.id, x : coord.x, y : coord.y, label : dt.nom_unite};
-                console.log('>>>B>>>>>>>', JSON.stringify(dtUnity));
                 addUnity(dtUnity);
             });
         });
@@ -559,7 +564,7 @@ function content(config, datas, callback) {
                         <button type="button" id="actionUnity" class="btn btn-primary btn-sm">Refresh unités</button>
                     </div>
                     <div class="col-8">
-                        <div id="detailUnite">Unité 6 - [Tony, Blaze]</div>
+                        <div id="detailUnite"></div>
                     </div>
                 </div>
             </div>

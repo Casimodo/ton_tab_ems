@@ -37,11 +37,18 @@
   background: #080fea; border: 2px solid #111; box-shadow: 0 0 0 2px #0006;
   transform: translate(-50%, -100%); /* pointe sur le “pied” */
   cursor: pointer;
-  animation: pulseUnity 2s infinite;
+}
+#detailUnite {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 1.7rem;
 }
 .marker.active { 
   outline: 2px solid #fff; 
   animation: pulse 1.5s infinite;
+}
+.unity.active { 
+  outline: 2px solid #fff; 
+  animation: pulseUnity 2s infinite;
 }
 
 .eti-enattente {
