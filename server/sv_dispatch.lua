@@ -27,7 +27,7 @@ fk.RegisterServerCallback('ton_tab_ems:set_dispatch_inter', function(source, cb,
     if dt.status == "traité" then status = "traité" end
     if dt.status == "en attente" then status = "attribué" end
     if dt.status == "attribué" then status = "en attente" end
-    print('>>>>>' .. dt.status .. '>>' .. status)
+
     local QUERY = "UPDATE ton_ems_dispatch SET status = @status WHERE id = @id;"
     MySQL.query(QUERY, {
         ['@status'] = status,
@@ -53,11 +53,8 @@ end)
 -- *******************************************************
 -- ** Renvoi la list des unités sur le terrain   
 -- *******************************************************
-fk.RegisterServerCallback('ton_tab_ems:unity_get', function(source, cb, data)
+fk.RegisterServerCallback('ton_tab_ems:get_unity', function(source, cb)
     local _src = source
-
-    -- local xPlayer = ESX.GetPlayerFromId(_src)
-    -- local identifier = xPlayer.identifier
 
     local QUERY = "SELECT * FROM ton_ems_unites WHERE agent1_id <> '' ORDER BY id;"
     MySQL.query(QUERY, {}, function(result)
@@ -65,23 +62,16 @@ fk.RegisterServerCallback('ton_tab_ems:unity_get', function(source, cb, data)
         local response = {}
         for i = 1, #result do
             local row = result[i]
-            table.insert(response, {
-                id              = row.id,
-                nom             = row.nom,
-                prenom          = row.prenom,
-                datebirday      = row.datebirday,
-                phone_number    = row.phone_number,
-                comment         = row.comment, 
-                adn             = row.adn, 
-                photo1          = row.photo1, 
-                photo2          = row.photo2,
-                photo3          = row.photo3,
-                photo4          = row.photo4,
-                redige_par      = row.redige_par,
-                cree_par        = row.cree_par,
-                date_add        = row.date_add,
-                date_update     = row.date_update
-            })
+            local ok, dt = exports['ton_tab_ems']:GetPlayerCoordsAndJobByIdentifier(row.agent1_id)
+            local job = dt.job.name
+            local emsJob = exports['ton_tab_ems']:isJobAllowed(job)
+            if emsJob then
+                table.insert(response, {
+                    id              = row.id,
+                    nom_unite       = row.nom_unite,
+                    coords          = dt.coords
+                })
+            end
         end
         cb(response)
 

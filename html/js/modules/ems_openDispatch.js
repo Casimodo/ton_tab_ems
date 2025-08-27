@@ -31,7 +31,7 @@ let viewport        = null;
 let world           = null;
 let img             = null;
 let markersLayer    = null;
-let unityLayer    = null;
+let unityLayer      = null;
 let playerDot       = null;
 let scaleBar        = null;
 let actionFocus     = null;
@@ -89,7 +89,7 @@ function updateFocus(idRecherche) {
     });
 }
 
-// Ajoute un marker {id,x,y,label}
+// Ajoute un marker addMarker({id,x,y,label})
 function addMarker(m) {
     let item = markers.get(m.id);
     if (!item) {
@@ -113,7 +113,7 @@ function addMarker(m) {
     placeAtImagePx(item.el, px, py);  
 }
 
-// Ajoute une unity {id,x,y,label}
+// Ajoute une unity addUnity({id,x,y,label})
 function addUnity(m) {
     let item = unity.get(m.id);
     if (!item) {
@@ -127,7 +127,7 @@ function addUnity(m) {
             // setActive(m.id);
         });
         unityLayer.appendChild(el);
-        item = { ...m, el, active: false };
+        item = { ...m, el, active: true };
         unity.set(m.id, item);
     } else {
         item.x = m.x; item.y = m.y; item.label = m.label || item.label;
@@ -234,6 +234,7 @@ function init(datas) {
     world           = document.getElementById('world');
     img             = document.getElementById('mapImage');
     markersLayer    = document.getElementById('markers');
+    unityLayer      = document.getElementById('unity');
     playerDot       = document.getElementById('playerDot');
     scaleBar        = document.getElementById('scalebar');
     
@@ -286,7 +287,7 @@ function init(datas) {
     });
 
     // Expose une petite API globale si tu veux piloter via devtools NUI
-    window.SimpleMap = { addMarker, removeMarker, focusMarker, setPlayerPos };
+    window.SimpleMap = { addMarker, removeMarker, focusMarker, setPlayerPos, addUnity, removeAllUnity };
 
     img.onload = () => {
         // centre initial sur la carte
@@ -459,12 +460,20 @@ function init(datas) {
     */
     $('#actionUnity').on('click', (e) => {
         
+        console.log(">>> Get all unity");
         fetch(`https://${resource}/get_unity`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json; charset=UTF-8',},
-            body: null,
+            body: JSON.stringify({}),
         }).then(resp => resp.json()).then(resp => {
-            
+            console.log(`>>>A>`, JSON.stringify(resp));
+            removeAllUnity();
+            resp.forEach((dt, index) => {
+                let coord = dt.coords;
+                let dtUnity = {id : dt.id, x : coord.x, y : coord.y, label : dt.nom_unite};
+                console.log('>>>B>>>>>>>', JSON.stringify(dtUnity));
+                addUnity(dtUnity);
+            });
         });
 
     });
@@ -546,10 +555,10 @@ function content(config, datas, callback) {
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4">
                         <button type="button" id="actionUnity" class="btn btn-primary btn-sm">Refresh unités</button>
                     </div>
-                    <div class="col-9">
+                    <div class="col-8">
                         <div id="detailUnite">Unité 6 - [Tony, Blaze]</div>
                     </div>
                 </div>

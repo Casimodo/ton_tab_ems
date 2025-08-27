@@ -34,10 +34,11 @@ end)
 -- *******************************************************
 -- ** Renvoi la list des unités sur le terrain   
 -- *******************************************************
-RegisterNUICallback('unity_get', function(data, cb)
+RegisterNUICallback('get_unity', function(data, cb)
 
-    fk.TriggerServerCallback('ton_tab_ems:unity_get', function(result)
+    print(">>>> call ton_tab_ems:unity_get")
+    fk.TriggerServerCallback('ton_tab_ems:get_unity', function(result)
         cb(result)
-    end, nil)
+    end)
 
 end)
