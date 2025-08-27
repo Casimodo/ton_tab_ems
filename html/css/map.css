@@ -4,10 +4,10 @@
   flex: 1; background: #143d6b;
   overflow: hidden; cursor: grab;
   width: 40vh;
-  height: 55vh;
+  height: 50vh;
 }
 
-#world, #mapImage, #markers, #playerDot {
+#world, #mapImage, #markers, #unity, #playerDot {
   position: absolute;
   left: 0; top: 0;
   transform-origin: 0 0;      /* très important */
@@ -32,6 +32,13 @@
   transform: translate(-50%, -100%); /* pointe sur le “pied” */
   cursor: pointer;
 }
+.unity {
+  position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: #080fea; border: 2px solid #111; box-shadow: 0 0 0 2px #0006;
+  transform: translate(-50%, -100%); /* pointe sur le “pied” */
+  cursor: pointer;
+  animation: pulseUnity 2s infinite;
+}
 .marker.active { 
   outline: 2px solid #fff; 
   animation: pulse 1.5s infinite;
@@ -46,9 +53,6 @@
 .eti-traite {
   background: #17ea08;
 }
-.trSelect {
-  border: solid, 2px, #17ea08;
-}
 
 
 /* Animation de pulsation */
@@ -57,7 +61,19 @@
     box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
   }
   50% {
-    box-shadow: 0 0 24px 12px rgba(234, 8, 8, 0.6);
+    box-shadow: 0 0 48px 24px rgba(234, 8, 8, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
+  }
+}
+/* Animation de pulsation */
+@keyframes pulseUnity {
+  0% {
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
+  }
+  50% {
+    box-shadow: 0 0 48px 24px rgba(19, 8, 234, 0.6);
   }
   100% {
     box-shadow: 0 0 0 2px rgba(0,0,0,0.4);

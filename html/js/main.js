@@ -111,16 +111,16 @@ window.addEventListener('message', function (event) {
     
     if (lib.getActif() == '') {
 
-        switch (event.data.type) {
+        let dt = event.data; 
+        switch (dt.type) {
             case "open":
-                datas.profil = event.data.values;
-                datas.config = event.data.config;
-                datas.img = event.data.img64;
+                
+                datas.profil = dt.values;
+                datas.config = dt.config;
+                datas.img = dt.img64;
 
                 $('body').show();
                 home(datas); // Affichage de la page d'accueil
-                break;
-            case "xxx":
                 break;
             default:
                 break;

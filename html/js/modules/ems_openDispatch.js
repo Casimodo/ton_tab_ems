@@ -31,6 +31,7 @@ let viewport        = null;
 let world           = null;
 let img             = null;
 let markersLayer    = null;
+let unityLayer    = null;
 let playerDot       = null;
 let scaleBar        = null;
 let actionFocus     = null;
@@ -39,6 +40,7 @@ let lastFocusId     = null;
 
 // cache marqueurs
 const markers = new Map(); // id -> {x,y,el,label,active}
+const unity = new Map(); // id -> {x,y,el,label,active}
 
 // Applique transform aux calques
 function applyTransform() {
@@ -67,10 +69,24 @@ function placeAtImagePx(el, px, py) {
 }
 
 // Ajoute/maj le curseur joueur
-function setPlayerPos(x, y) {
+function setPlayerPos(x, y, ) {
     const { px, py } = worldToPixel(x, y);
     placeAtImagePx(playerDot, px, py);
     playerDot.classList.remove('hidden');
+}
+
+
+// Permet d'avoir dynamiquement le focus sur les lignes du dispatch
+function updateFocus(idRecherche) {
+    
+    $("#table-dispatch tr").each(function() {
+      // Retirer la classe à tous les tr
+      $(this).removeClass("table-success");
+      // Vérifier si le data-id correspond
+      if ($(this).attr("data-id") == idRecherche) {
+        $(this).addClass("table-success"); // Ajouter la classe
+      }
+    });
 }
 
 // Ajoute un marker {id,x,y,label}
@@ -80,6 +96,7 @@ function addMarker(m) {
         const el = document.createElement('div');
         el.className = 'marker';
         el.title = m.label || m.id;
+        el.id = m.id;
         el.addEventListener('click', (ev) => {
             ev.stopPropagation();
             focusMarker(m.id, { animate: true });
@@ -88,6 +105,30 @@ function addMarker(m) {
         markersLayer.appendChild(el);
         item = { ...m, el, active: false };
         markers.set(m.id, item);
+    } else {
+        item.x = m.x; item.y = m.y; item.label = m.label || item.label;
+        item.el.title = item.label;
+    }
+    const { px, py } = worldToPixel(item.x, item.y);
+    placeAtImagePx(item.el, px, py);  
+}
+
+// Ajoute une unity {id,x,y,label}
+function addUnity(m) {
+    let item = unity.get(m.id);
+    if (!item) {
+        const el = document.createElement('div');
+        el.className = 'unity';
+        el.title = m.label || m.id;
+        el.id = m.id;
+        el.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            // focusMarker(m.id, { animate: true });
+            // setActive(m.id);
+        });
+        unityLayer.appendChild(el);
+        item = { ...m, el, active: false };
+        unity.set(m.id, item);
     } else {
         item.x = m.x; item.y = m.y; item.label = m.label || item.label;
         item.el.title = item.label;
@@ -105,6 +146,18 @@ function removeMarker(id) {
     }
 }
 
+// Supprime les unity
+function removeAllUnity() {
+    unity.forEach((it) => {
+        let id = it.id;
+        const item = markers.get(id);
+        if (item) {
+            item.el.remove();
+            markers.delete(id);
+        }
+    });
+}
+
 // Active visuellement un marker
 function setActive(id) {
     markers.forEach((it) => it.el.classList.remove('active'));
@@ -115,6 +168,8 @@ function setActive(id) {
 // Recentrer/zoomer sur un marker
 function focusMarker(id, opts = {}) {
     const item = markers.get(id);
+    lastFocusId = id;
+    updateFocus(lastFocusId);
     if (!item) return;
     const { px, py } = worldToPixel(item.x, item.y);
 
@@ -154,6 +209,21 @@ function updateScaleBar() {
     const widthPx = targetMeters / mppScreen;
     scaleBar.style.width = `${Math.round(widthPx)}px`;
     scaleBar.setAttribute('data-label', `${targetMeters} m`);
+}
+
+// Permet d'avoir dynamiquement le focus sur les lignes du dispatch
+function changeStatut(id, status) {
+    
+    let classStatus = (status == 'en attente') ? 'eti-enattente' :
+                          (status == 'attribué') ? 'eti-attribue' : 'eti-traite' ;
+    
+    var ligne = $("#table-dispatch tr[data-id='" + id + "']");
+    ligne.find(".bade-status").removeClass("eti-enattente");
+    ligne.find(".bade-status").removeClass("eti-attribue");
+    ligne.find(".bade-status").removeClass("eti-traite");
+    ligne.find(".bade-status").text(status);
+    ligne.find(".bade-status").addClass(classStatus);
+    
 }
 
 // Init image et transform
@@ -202,10 +272,10 @@ function init(datas) {
         const px = (sx - originX) / scale;
         const py = (sy - originY) / scale;
         const { x, y } = pixelToWorld(px, py);
-        fetch(`https://${resource}/setWaypoint`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ x, y })
-        });
+        // fetch(`https://${resource}/setWaypoint`, {
+        //     method: 'POST', headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ x, y })
+        // });
     });
 
     // NUI messages
@@ -335,7 +405,6 @@ function init(datas) {
         let id = parseInt(e.currentTarget.getAttribute('data-id'));
         let status = e.currentTarget.getAttribute('data-status');
         let dtBody = JSON.stringify({ id : id, status : status });
-        lastFocusId = id;
 
         fetch(`https://${resource}/dispatch_get_inter`, {
             method: 'POST',
@@ -343,8 +412,59 @@ function init(datas) {
             body: dtBody,
         }).then(resp => resp.json()).then(resp => {
             
-            refresh();
+        });
 
+    });
+
+    /**
+     * Action close l'intervention
+    */
+    $('.actionCloturer').on('click', (e) => {
+        
+        let id = parseInt(e.currentTarget.getAttribute('data-id'));
+        let status = 'traité';
+        let dtBody = JSON.stringify({ id : id, status : status });
+        
+        fetch(`https://${resource}/dispatch_get_inter`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8',},
+            body: dtBody,
+        }).then(resp => resp.json()).then(resp => {
+            
+        });
+
+    });
+
+    /**
+     * Action close l'intervention
+    */
+    $('.actionSupprimer').on('click', (e) => {
+        
+        let id = parseInt(e.currentTarget.getAttribute('data-id'));
+        let status = 'close';
+        let dtBody = JSON.stringify({ id : id, status : status });
+
+        fetch(`https://${resource}/dispatch_get_inter`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8',},
+            body: dtBody,
+        }).then(resp => resp.json()).then(resp => {
+            
+        });
+
+    });
+
+    /**
+     * Voir les unités
+    */
+    $('#actionUnity').on('click', (e) => {
+        
+        fetch(`https://${resource}/get_unity`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json; charset=UTF-8',},
+            body: null,
+        }).then(resp => resp.json()).then(resp => {
+            
         });
 
     });
@@ -385,11 +505,11 @@ function content(config, datas, callback) {
         let classStatus = (dt.status == 'en attente') ? 'eti-enattente' :
                           (dt.status == 'attribué') ? 'eti-attribue' : 'eti-traite' ;
 
-        let classTrSelect = (lastFocusId == dt.id) ? 'trSelect' : '' ;
+        let classTrSelect = (lastFocusId == dt.id) ? 'table-success' : '' ;
 
         details += `
             <tr class="fMarker ${classTrSelect}" data-id="${dt.id}">
-                <td><span class="badge ${classStatus} text-dark">${dt.status}</span></td>
+                <td class=""><span class="badge ${classStatus} text-dark bade-status">${dt.status}</span></td>
                 <td>${dt.description}</td>
                 <td>-</td>
                 <td>${dt.heure_minute}</td>
@@ -416,33 +536,49 @@ function content(config, datas, callback) {
 
                         <!-- Calque marqueurs -->
                         <div id="markers"></div>
+
+                        <!-- Calque unity -->
+                        <div id="unity"></div>
                         
                         <!-- Curseur joueur optionnel -->
                         <div id="playerDot" class="dot hidden" title="Toi"></div>
                     </div>
                 </div>
+                <br/>
+                <div class="row">
+                    <div class="col-3">
+                        <button type="button" id="actionUnity" class="btn btn-primary btn-sm">Refresh unités</button>
+                    </div>
+                    <div class="col-9">
+                        <div id="detailUnite">Unité 6 - [Tony, Blaze]</div>
+                    </div>
+                </div>
             </div>
 
 
-            <div  class="col-7">
-                <span><i>cliquer sur la ligne pour voir l'emplacement</i></span><br/>
-                <span><i class="fas fa-hand-paper text-success mx-2"></i> Prendre / libérer l'intervention</i></span><br/>
-                <span><i class="fas fa-check-circle text-success mx-2"></i> Clôturer l'intervention</i></span><br/>
-                <span><i class="fas fa-trash text-danger mx-2"></i> Supprimer l'intervention</i></span>
-                <table class="table table-hover table-striped align-middle">
-                    <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Statut</th>
-                        <th scope="col">Description</th>                        
-                        <th scope="col">Agent</th>
-                        <th scope="col">Heure</th>
-                        <th scope="col" class="text-center">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        ${details}
-                    </tbody>
-                </table>
+            <div class="col-7">
+                <div class="col-12">
+                    <span><i>cliquer sur la ligne pour voir l'emplacement</i></span><br/>
+                    <span><i class="fas fa-hand-paper text-success mx-2"></i> Prendre / libérer l'intervention</i></span><br/>
+                    <span><i class="fas fa-check-circle text-success mx-2"></i> Clôturer l'intervention</i></span><br/>
+                    <span><i class="fas fa-trash text-danger mx-2"></i> Supprimer l'intervention</i></span>
+                </div>
+                <div class="col-12">
+                    <table id="table-dispatch" class="table table-hover table-striped align-middle">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Description</th>                        
+                            <th scope="col">Unité</th>
+                            <th scope="col">Heure</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            ${details}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
@@ -502,3 +638,20 @@ export function action(config) {
     }); 
 
 };
+
+/** ****************************************************************************
+ * Reception de message pour le dispatch
+ * ****************************************************************************/
+window.addEventListener('message', function (event) {
+
+    let dt = event.data; 
+    switch (dt.type) {
+        case "dispatch_status":
+            console.log(`dt.id:${dt.values.id}, dt.status:${dt.values.status}`)
+            changeStatut(dt.values.id, dt.values.status)
+            break;
+        default:
+            break;
+    }
+
+});
