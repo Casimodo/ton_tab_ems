@@ -30,8 +30,8 @@ end
 -- Fonction callback [Server] si besoins pour prévenir la personne de la prise en charge
 Config_callback.priseEnCharge = function(source, unity_name)
 
-    local message = "Bonjour, l'unité : " .. unity_name .. " est en route !"
+    local message = "Bonjour, " .. unity_name .. " vient de prendre en charge votre demande !"
     print(message);
-    TriggerClientEvent('ton_tab_ems:ShowNotification', message)
+    TriggerClientEvent('ton_tab_ems:ShowNotification', source, message) -- utilise lib.notify(...)
 
 end

@@ -32,6 +32,6 @@ Citizen.CreateThread(function()
         while fk.GetPlayerData().job == nil do
             Citizen.Wait(10)
         end
-        PlayerData = fk.GetPlayerData()
+       -- PlayerData = fk.GetPlayerData()
     end
 end)

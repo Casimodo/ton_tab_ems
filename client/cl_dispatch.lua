@@ -5,9 +5,15 @@
 RegisterNetEvent('ton_tab_ems:ShowNotification')
 AddEventHandler('ton_tab_ems:ShowNotification', function(message)
 
-    ESX.ShowNotification(('~r~[EMS]~s~ %s'):format(message or ''))
+    lib.notify({
+        title = 'Alert EMS',
+        description = message,
+        type = 'inform',
+        duration = 10000 -- 10 secondes
+    })
 
 end)
+
 
 -- *******************************************************
 -- ** Permet de changer en live le status de la tablette   

@@ -61,6 +61,43 @@ local function getUnityByIdentifier(cb, identifier)
 end
 
 -- *******************************************************
+-- ** Recherche du dispatch par id          
+-- *******************************************************
+local function getInterById(cb, id)
+
+    local QUERY = "SELECT * FROM ton_ems_dispatch WHERE id = @id LIMIT 1;"
+    MySQL.query(QUERY, {
+        ['id'] = id
+    }, function(result)
+
+        local response = {
+            id                  = 0,
+            unity               = 'Unité 0',
+            identifier_alert    = 'Error',
+            source_alert        = '',
+            description         = '',
+            location            = '',
+            status              = ''
+        }
+        for i = 1, #result do
+            local row = result[i]
+            response = {
+                id               = row.id,
+                unity            = row.unity,
+                identifier_alert = row.identifier_alert,
+                source_alert     = row.source_alert,
+                description      = row.description,
+                location         = row.location,
+                status           = row.status
+            }
+        end
+        cb(response)
+
+    end)
+
+end
+
+-- *******************************************************
 -- ** Mise à jour du statut d'une intervention          
 -- *******************************************************
 fk.RegisterServerCallback('ton_tab_ems:set_dispatch_inter', function(source, cb, dt)
@@ -75,37 +112,39 @@ fk.RegisterServerCallback('ton_tab_ems:set_dispatch_inter', function(source, cb,
 
     local xPlayer = fk.GetPlayerFromId(_src)
     local identifier = xPlayer.identifier
-    print(">>>>>" .. json.encode(identifier))
 
-    getUnityByIdentifier(function(responseUnity)
-        local unityName = responseUnity.nom
-        print(">>>>>" .. json.encode(responseUnity))
-        local QUERY = "UPDATE ton_ems_dispatch SET status = @status WHERE id = @id;"
-        if status == "attribué" then
-            QUERY = "UPDATE ton_ems_dispatch SET status = @status, unity = @unity WHERE id = @id;"
-            
-            Config_callback.priseEnCharge(source, unityName) -- Appel du callback du config
-        end
-        MySQL.query(QUERY, {
-            ['@status'] = status,
-            ['@unity'] = unityName,
-            ['@id'] = dt.id
-        }, function(result)
+    getInterById(function(inter) 
 
-            -- Récupère les players ayant ouvert la tablette et leur notifie en live du changement
-            local targets = exports['ton_tab_ems']:GetSourcesOpenTab()  -- tableau d'entiers
-            for _, src in ipairs(targets) do
-                -- Vérifier que le joueur est bien connecté (sécurité)
-                if GetPlayerName(src) ~= nil then
-                    local newStatus = {id = dt.id, status = status, unity = unityName}
-                    TriggerClientEvent('ton_tab_ems:changeStatut', src, newStatus)
-                end
+        getUnityByIdentifier(function(responseUnity)
+            local unityName = responseUnity.nom
+            local QUERY = "UPDATE ton_ems_dispatch SET status = @status WHERE id = @id;"
+            if status == "attribué" then
+                QUERY = "UPDATE ton_ems_dispatch SET status = @status, unity = @unity WHERE id = @id;"
+                
+                Config_callback.priseEnCharge(inter.source_alert, unityName) -- Appel du callback du config
             end
+            MySQL.query(QUERY, {
+                ['@status'] = status,
+                ['@unity'] = unityName,
+                ['@id'] = dt.id
+            }, function(result)
 
-            cb(true)
+                -- Récupère les players ayant ouvert la tablette et leur notifie en live du changement
+                local targets = exports['ton_tab_ems']:GetSourcesOpenTab()  -- tableau d'entiers
+                for _, src in ipairs(targets) do
+                    -- Vérifier que le joueur est bien connecté (sécurité)
+                    if GetPlayerName(src) ~= nil then
+                        local newStatus = {id = dt.id, status = status, unity = unityName}
+                        TriggerClientEvent('ton_tab_ems:changeStatut', src, newStatus)
+                    end
+                end
 
-        end)
-    end, identifier)
+                cb(true)
+
+            end)
+        end, identifier)
+
+    end, dt.id)
 
 end)
 

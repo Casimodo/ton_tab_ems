@@ -426,7 +426,7 @@ function init(datas) {
         
         let id = parseInt(e.currentTarget.getAttribute('data-id'));
         let status = e.currentTarget.getAttribute('data-status');
-        let dtBody = JSON.stringify({ id : id, status : status, marker : getMarker(id) });
+        let dtBody = JSON.stringify({ id : id, status : status, marker : getMarker(id)});
 
         fetch(`https://${resource}/dispatch_get_inter`, {
             method: 'POST',
@@ -538,7 +538,7 @@ function content(config, datas, callback) {
             <tr class="fMarker ${classTrSelect}" data-id="${dt.id}">
                 <td class=""><span class="badge ${classStatus} text-dark bade-status">${dt.status}</span></td>
                 <td>${dt.description}</td>
-                <td class="bade-unity">-</td>
+                <td class="bade-unity">${dt.unity}</td>
                 <td>${dt.heure_minute}</td>
                 <td class="text-center">
                 <i class="fas fa-hand-paper text-success mx-2 actionPrendre" title="Prendre l'intervention" data-id="${dt.id}" data-status="${dt.status}"></i>

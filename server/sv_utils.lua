@@ -26,7 +26,7 @@ local function findPlayerSourceByIdentifier(identifier)
         end
     end
     -- Essais spécifiques framework si l'identifiant fourni est un citizenid (QB) ou steam/license exact
-    if Config.frameworkObject == 'qb' then
+    if Config.framework == 'qb' then
         -- QBCore: recherche par citizenid exact si passé
         for _, src in ipairs(GetPlayers()) do
             local p = QBCore.Functions.GetPlayer(tonumber(src))
@@ -34,7 +34,7 @@ local function findPlayerSourceByIdentifier(identifier)
                 return tonumber(src)
             end
         end
-    elseif Config.frameworkObject == 'esx' and ESX.GetPlayerFromIdentifier then
+    elseif Config.framework == 'esx' and ESX.GetPlayerFromIdentifier then
         -- ESX: recherche directe si identifiant complet (ex: license:xxxxxxxx)
         local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
         if xPlayer then return xPlayer.source end
@@ -43,7 +43,7 @@ local function findPlayerSourceByIdentifier(identifier)
 end
 
 local function getJobData(src)
-    if Config.frameworkObject == 'esx' then
+    if Config.framework == 'esx' then
         local xPlayer = ESX.GetPlayerFromId(src)
         if xPlayer and xPlayer.job then
             return {
@@ -54,7 +54,7 @@ local function getJobData(src)
                 grade_label = xPlayer.job.grade_label
             }
         end
-    elseif Config.frameworkObject == 'qb' then
+    elseif Config.framework == 'qb' then
         local p = QBCore.Functions.GetPlayer(src)
         if p and p.PlayerData and p.PlayerData.job then
             local j = p.PlayerData.job
