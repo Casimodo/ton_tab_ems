@@ -161,15 +161,15 @@ fk.RegisterServerCallback('ton_tab_ems:get_unity', function(source, cb)
         for i = 1, #result do
             local row = result[i]
             local ok, dt = exports['ton_tab_ems']:GetPlayerCoordsAndJobByIdentifier(row.agent1_id)
-            local job = dt.job.name
-            local emsJob = exports['ton_tab_ems']:isJobAllowed(job)
-            if emsJob then
+            --local job = dt.job.name
+            --local emsJob = exports['ton_tab_ems']:isJobAllowed(job)
+            --if emsJob then
                 table.insert(response, {
                     id              = row.id,
                     nom_unite       = row.nom_unite,
                     coords          = dt.coords
                 })
-            end
+            --end
         end
         cb(response)
 
@@ -203,9 +203,7 @@ local function alert(source, description)
     end)
 end
 
-exports('alert', function(source, raison)
-    alert(source, raison)
-end)
+exports('alert', alert)
 
 RegisterCommand(Config.command.alert, function(source)
 

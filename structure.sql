@@ -1,6 +1,6 @@
 CREATE TABLE ton_ems_dispatch (
     id INT AUTO_INCREMENT PRIMARY KEY,          -- ID unique de l'intervention
-    unity VARCHAR(50) NULL,                     -- ID de l'agent qui prend en charge (NULL si personne)
+    unity VARCHAR(50) DEFAULT '',               -- ID de l'agent qui prend en charge (NULL si personne)
     identifier_alert VARCHAR(60) NULL,          -- ID du lanceur d'alert
     source_alert INT NULL,                      -- Source du lanceur d'alert
     description TEXT,                           -- Description libre

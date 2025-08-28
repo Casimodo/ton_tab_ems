@@ -41,5 +41,5 @@ Un certain nombre d'image sont en dans leur dossier respectif et donc modifiable
 
 ```
 -- Appel, signalement | exemple: export['ton_tab_ems']:alert(source, "accident de chantier")  
-export['ton_tab_ems']:alert(source, raison)
+exports['ton_tab_ems']:alert(source, raison)
 ```
