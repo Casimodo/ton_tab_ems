@@ -1,6 +1,6 @@
 CREATE TABLE ton_ems_dispatch (
     id INT AUTO_INCREMENT PRIMARY KEY,          -- ID unique de l'intervention
-    unity_id INT NULL,                          -- ID de l'agent qui prend en charge (NULL si personne)
+    unity VARCHAR(50) NULL,                      -- ID de l'agent qui prend en charge (NULL si personne)
     type VARCHAR(50) NOT NULL,                  -- Type d'intervention (accident, feu, médical, etc.)
     description TEXT,                           -- Description libre
     location VARCHAR(255) NOT NULL,             -- Localisation (coordonnées, adresse, zone RP...)

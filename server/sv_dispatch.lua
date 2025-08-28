@@ -77,3 +77,44 @@ fk.RegisterServerCallback('ton_tab_ems:get_unity', function(source, cb)
 
     end)
 end)
+
+
+-- *******************************************************
+-- ** Mise à jour du statut d'une intervention          
+-- *******************************************************
+local function alert(source, raison) 
+    local _src = source
+
+    local ped = GetPlayerPed(_src)
+    local coords = vector3(0,0,0)
+    if not ped or ped <= 0 then return nil end
+    coords = GetEntityCoords(ped)
+
+    -- local QUERY = "INSERT ton_ems_dispatch SET status = @status WHERE id = @id;"
+    -- MySQL.query(QUERY, {
+    --     ['@status'] = status,
+    --     ['@id'] = dt.id
+    -- }, function(result)
+
+    --     -- Récupère les players ayant ouvert la tablette et leur notifie en live du changement
+    --     local targets = exports['ton_tab_ems']:GetSourcesOpenTab()  -- tableau d'entiers
+    --     for _, src in ipairs(targets) do
+    --         -- Vérifier que le joueur est bien connecté (sécurité)
+    --         if GetPlayerName(src) ~= nil then
+    --             local newStatus = {id = dt.id, status = status}
+    --             TriggerClientEvent('ton_tablette:changeStatut', src, newStatus)
+    --         end
+    --     end
+
+    --     cb(true)
+
+    -- end)
+end
+
+exports('alert', function(source)
+    alert(source, "bla")
+end)
+
+RegisterCommand("alert", function(source)
+    alert(source, "bla2")
+end)

@@ -97,6 +97,8 @@ function addMarker(m) {
         el.className = 'marker';
         el.title = m.label || m.id;
         el.id = m.id;
+        el.x = m.x;
+        el.y = m.y;
         el.addEventListener('click', (ev) => {
             ev.stopPropagation();
             focusMarker(m.id, { animate: true });
@@ -121,6 +123,8 @@ function addUnity(m) {
         el.className = 'unity';
         el.title = m.label || m.id;
         el.id = m.id;
+        el.x = m.x;
+        el.y = m.y;
         el.addEventListener('click', (ev) => {
             ev.stopPropagation();
             setActiveUnity(m.id);
@@ -135,6 +139,15 @@ function addUnity(m) {
     }
     const { px, py } = worldToPixel(item.x, item.y);
     placeAtImagePx(item.el, px, py);  
+}
+
+// Récupère les données d'un marker par id
+function getMarker(id) {
+    const item = markers.get(id);
+    if (item) {
+        return {id: id, label : item.el.title, x : item.el.x, y : item.el.y};
+    }
+    return null;
 }
 
 // Supprime un marker par id
@@ -412,7 +425,7 @@ function init(datas) {
         
         let id = parseInt(e.currentTarget.getAttribute('data-id'));
         let status = e.currentTarget.getAttribute('data-status');
-        let dtBody = JSON.stringify({ id : id, status : status });
+        let dtBody = JSON.stringify({ id : id, status : status, marker : getMarker(id) });
 
         fetch(`https://${resource}/dispatch_get_inter`, {
             method: 'POST',
@@ -659,7 +672,6 @@ window.addEventListener('message', function (event) {
     let dt = event.data; 
     switch (dt.type) {
         case "dispatch_status":
-            console.log(`dt.id:${dt.values.id}, dt.status:${dt.values.status}`)
             changeStatut(dt.values.id, dt.values.status)
             break;
         default:
