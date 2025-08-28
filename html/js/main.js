@@ -61,7 +61,7 @@ function home(datas) {
     profil.action(datas);
     emsOpenInfo.action(datas);
     emsOpenDispatch.action(datas);
-    emsOpenPersonnel.action(datas);
+    emsOpenPersonnel.action(datas, lib);
 
     // Les petits raccourcis client
     $('#openInfo').on('click', () => {

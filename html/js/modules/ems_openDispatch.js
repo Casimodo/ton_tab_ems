@@ -586,25 +586,30 @@ function content(config, datas, callback) {
             <div class="col-7">
                 <div class="col-12">
                     <span><i>cliquer sur la ligne pour voir l'emplacement</i></span><br/>
-                    <span><i class="fas fa-hand-paper text-success mx-2"></i> Prendre / libérer l'intervention</i></span><br/>
+                    <span><i class="fas fa-hand-paper text-success mx-2"></i> Prendre / libérer l'intervention (vous met un point GPS)</i></span><br/>
                     <span><i class="fas fa-check-circle text-success mx-2"></i> Clôturer l'intervention</i></span><br/>
                     <span><i class="fas fa-trash text-danger mx-2"></i> Supprimer l'intervention</i></span>
                 </div>
+                <br/>
                 <div class="col-12">
-                    <table id="table-dispatch" class="table table-hover table-striped align-middle">
-                        <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Statut</th>
-                            <th scope="col">Description</th>                        
-                            <th scope="col">Unité</th>
-                            <th scope="col">Heure</th>
-                            <th scope="col" class="text-center">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            ${details}
-                        </tbody>
-                    </table>
+                    <div class="container text-center">
+                        <div class="col-12">
+                            <table id="table-dispatch" class="table table-dark table-hover">
+                                <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Description</th>                        
+                                    <th scope="col">Unité</th>
+                                    <th scope="col">Heure</th>
+                                    <th scope="col" class="text-center">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    ${details}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
