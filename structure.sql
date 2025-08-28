@@ -10,20 +10,6 @@ CREATE TABLE ton_ems_dispatch (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- MAJ auto
 );
 
-
-CREATE TABLE ton_ems_agents (
-    identifier VARCHAR(60) PRIMARY KEY,             -- identifiant unique de l’agent
-    nom VARCHAR(100) NOT NULL,                     -- nom complet de l’agent
-    matricule VARCHAR(20) UNIQUE NOT NULL,         -- numéro unique (badge / matricule EMS)
-    grade ENUM('stagiaire', 'ambulancier', 'chef_equipe', 'medecin') 
-          DEFAULT 'ambulancier',                   -- grade ou rôle
-    date_embauche DATE DEFAULT NULL,               -- si tu veux garder une date d’entrée
-    phone_number VARCHAR(20) DEFAULT NULL,         -- si besoin pour RP
-    notes TEXT DEFAULT NULL,                       -- remarques diverses
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
 CREATE TABLE ton_ems_unites (
     id INT AUTO_INCREMENT PRIMARY KEY,         -- identifiant unique de l’unité
     nom_unite VARCHAR(50) NOT NULL,            -- ex: "Ambu 1", "VL Médic 2"
