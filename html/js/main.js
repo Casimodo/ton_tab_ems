@@ -2,6 +2,7 @@ import * as lib from './modules/lib.js';
 import * as profil from './modules/profil.js';
 import * as emsOpenInfo from './modules/ems_openInfo.js';
 import * as emsOpenDispatch from './modules/ems_openDispatch.js';
+import * as emsOpenPersonnel from './modules/ems_openPersonnel.js';
 
 let bsTooltips = [];                // instances de tooltips (BS5)
 
@@ -29,6 +30,10 @@ function home(datas) {
                 <i class="fa-solid fa-file"></i>
                 <div class="app-name">Informations</div>
             </div>
+            <div class="app-icon icon-ambulance" id="emsOpenPersonnel">
+                <i class="fa-solid fa-users"></i>
+                <div class="app-name">Personnel</div>
+            </div>
             <div class="app-icon icon-ambulance" id="openDispatch">
                 <i class="fa-solid fa-person-military-to-person"></i>
                 <div class="app-name">Dispatch</div>
@@ -36,15 +41,6 @@ function home(datas) {
         `;
     }
 
-    // Pour un autre profil par exemple
-    // if (myProfil.job.name == 'xxx') {
-    //     app_patron = `
-    //         <div class="app-icon icon-patron" id="openPatron">
-    //             <i class="fa-solid fa-person-military-to-person"></i>
-    //             <div class="app-name">Effectifs</div>
-    //         </div>
-    //     `;
-    // }
 
     const contenu = `
         <div class="app-grid">
@@ -65,6 +61,7 @@ function home(datas) {
     profil.action(datas);
     emsOpenInfo.action(datas);
     emsOpenDispatch.action(datas);
+    emsOpenPersonnel.action(datas);
 
     // Les petits raccourcis client
     $('#openInfo').on('click', () => {
