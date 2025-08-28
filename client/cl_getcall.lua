@@ -2,6 +2,6 @@
 RegisterNUICallback('get_call', function(data, cb)
     
     ExecuteCommand('ton_getCall')
-    TriggerServerEvent('ton_tablette:getMyIdentity')
+    TriggerServerEvent('ton_tab_ems:getMyIdentity')
     cb('ok')
 end)

@@ -68,7 +68,7 @@ end
 -- *******************************************************
 -- ** Renvoi les voitures du player                     **
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:police_list', function(source, cb)
+ESX.RegisterServerCallback('ton_tab_ems:police_list', function(source, cb)
     -- getPolicePlayers(function(effectifs) 
     --     cb(effectifs)
     -- end)

@@ -25,7 +25,7 @@ RegisterNUICallback('police_licence', function(data, cb)
 
     local playerProche = GetNearbyPlayers();
 
-    ESX.TriggerServerCallback('ton_tablette:police_licence', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_licence', function(res)
         cb(res)
     end, playerProche)
 
@@ -36,7 +36,7 @@ end)
 -- *******************************************************
 RegisterNUICallback('police_licence_remove', function(idRemove, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_licence_remove', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_licence_remove', function(res)
         cb(res)
     end, idRemove)
 

@@ -2,7 +2,7 @@
 -- *******************************************************
 -- ** Maj matricule
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:matricule_police', function(source, cb, dt)
+ESX.RegisterServerCallback('ton_tab_ems:matricule_police', function(source, cb, dt)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     local identifier = xPlayer.identifier

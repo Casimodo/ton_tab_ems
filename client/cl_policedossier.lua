@@ -3,7 +3,7 @@
 -- *******************************************************
 RegisterNUICallback('police_dossier_find', function(data, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_dossier_find', function(res, amendesList)
+    ESX.TriggerServerCallback('ton_tab_ems:police_dossier_find', function(res, amendesList)
         cb({dossiers = res, amendes = amendesList})
     end, data)
 
@@ -14,7 +14,7 @@ end)
 -- *******************************************************
 RegisterNUICallback('police_dossier_get', function(id, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_dossier_get', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_dossier_get', function(res)
         cb(res)
     end, id)
 
@@ -25,7 +25,7 @@ end)
 -- *******************************************************
 RegisterNUICallback('police_dossier_save', function(data, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_dossier_save', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_dossier_save', function(res)
         cb(res)
     end, data)
 

@@ -9,7 +9,7 @@ RegisterNUICallback('matricule_police', function(data, cb)
         matricule = input[1]
     }
     
-    ESX.TriggerServerCallback('ton_tablette:matricule_police', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:matricule_police', function(res)
         cb('ok')
     end, dt)
 end)

@@ -4,15 +4,15 @@
 -- *******************************************************
 local currentTablet = nil
 
-RegisterNetEvent('ton_tablette:openTablette')
-AddEventHandler('ton_tablette:openTablette', function(datas)
+RegisterNetEvent('ton_tab_ems:openTablette')
+AddEventHandler('ton_tab_ems:openTablette', function(datas)
 
     local datasImage = exports["loaf_headshot_base64"]:getBase64(PlayerPedId())
 	local img64 = datasImage.base64
     local playerPed = PlayerPedId()
     local tabletModel = 'prop_cs_tablet'
 
-    TriggerServerEvent('ton_tablette:src_add_list') -- Permet de lister qui à ouvert la tablette
+    TriggerServerEvent('ton_tab_ems:src_add_list') -- Permet de lister qui à ouvert la tablette
 
     RequestModel(tabletModel)
     while not HasModelLoaded(tabletModel) do
@@ -79,7 +79,7 @@ end)
 RegisterNUICallback('close', function(data, cb)
     local playerPed = PlayerPedId()
 
-    TriggerServerEvent('ton_tablette:src_remove_list') -- Permet de lister qui à fermer la tablette
+    TriggerServerEvent('ton_tab_ems:src_remove_list') -- Permet de lister qui à fermer la tablette
 
     ClearPedTasks(playerPed)
     local attachedObjects = GetGamePool('CObject') -- Obtenir tous les objets de la scène

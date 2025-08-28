@@ -37,12 +37,9 @@ Un certain nombre d'image sont en dans leur dossier respectif et donc modifiable
 - Gestion de la flotte de véhicule responsabilité
 - Note de frais (système de gestion de notes de frais pour les agents)
 
-## 🛜 Exports
+## 🛜 Exports serveur
 
 ```
--- Appel, signalement
-export['ton_tab_ems']:call('titre', 'raison', coords)
-
--- Prise de service
-export['ton_tab_ems']:service(src)
+-- Appel, signalement | exemple: export['ton_tab_ems']:alert(source, "accident de chantier")  
+export['ton_tab_ems']:alert(source, raison)
 ```

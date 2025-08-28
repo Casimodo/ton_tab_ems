@@ -2,7 +2,7 @@
 -- *******************************************************
 -- ** Renvoi le resultat de la recherche            
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:police_casier_find', function(source, cb, data)
+ESX.RegisterServerCallback('ton_tab_ems:police_casier_find', function(source, cb, data)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     local identifier = xPlayer.identifier
@@ -49,7 +49,7 @@ end)
 -- *******************************************************
 -- ** Renvoi le resultat d'un resultat               
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:police_casier_get', function(source, cb, id)
+ESX.RegisterServerCallback('ton_tab_ems:police_casier_get', function(source, cb, id)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     local identifier = xPlayer.identifier
@@ -72,7 +72,7 @@ end)
 -- *******************************************************
 -- ** Renvoi le resultat d'un resultat                  **
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:police_casier_save', function(source, cb, dt)
+ESX.RegisterServerCallback('ton_tab_ems:police_casier_save', function(source, cb, dt)
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
     local identifier = xPlayer.identifier

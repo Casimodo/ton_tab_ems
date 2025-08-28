@@ -39,7 +39,7 @@ end
 -- *******************************************************
 -- **                                                   **
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:police_licence', function(source, cb, playerListProche)
+ESX.RegisterServerCallback('ton_tab_ems:police_licence', function(source, cb, playerListProche)
     getLicence(function(playerListLicence) 
         cb(playerListLicence)
     end, playerListProche)
@@ -48,7 +48,7 @@ end)
 -- *******************************************************
 -- **                                                   **
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:police_licence_remove', function(source, cb, idRemove)
+ESX.RegisterServerCallback('ton_tab_ems:police_licence_remove', function(source, cb, idRemove)
     
     local SQL = 'DELETE FROM user_licenses WHERE id = @find'
     MySQL.Async.fetchAll(SQL, {

@@ -76,8 +76,8 @@ end
 -- *******************************************************
 -- ** Enleve de la liste des src qui ont ouvert une tablette
 -- *******************************************************
-RegisterServerEvent('ton_tablette:src_remove_list')
-AddEventHandler('ton_tablette:src_remove_list', function()
+RegisterServerEvent('ton_tab_ems:src_remove_list')
+AddEventHandler('ton_tab_ems:src_remove_list', function()
 
     local src = source
     removeFromList(src)
@@ -87,8 +87,8 @@ end)
 -- *******************************************************
 -- ** Ajoute de la liste des src qui ont ouvert une tablette
 -- *******************************************************
-RegisterServerEvent('ton_tablette:src_add_list')
-AddEventHandler('ton_tablette:src_add_list', function()
+RegisterServerEvent('ton_tab_ems:src_add_list')
+AddEventHandler('ton_tab_ems:src_add_list', function()
 
     local src = source
     addToList(src)
@@ -98,13 +98,13 @@ end)
 -- *******************************************************
 -- ** Récuprère l'identité du joueur          
 -- *******************************************************
-RegisterServerEvent('ton_tablette:getMyIdentity')
-AddEventHandler('ton_tablette:getMyIdentity', function()
+RegisterServerEvent('ton_tab_ems:getMyIdentity')
+AddEventHandler('ton_tab_ems:getMyIdentity', function()
 
     local src = source
     local datas = getDatasPlayer(src)
 
-    TriggerClientEvent('ton_tablette:openTablette', src, datas)
+    TriggerClientEvent('ton_tab_ems:openTablette', src, datas)
 
 end)
 
@@ -116,7 +116,7 @@ RegisterCommand("ton_tab_ems", function(source, args, rawCommand)
     local src = source
     local datas = getDatasPlayer(src)
 
-    TriggerClientEvent('ton_tablette:openTablette', src, datas)
+    TriggerClientEvent('ton_tab_ems:openTablette', src, datas)
     
 end)
 

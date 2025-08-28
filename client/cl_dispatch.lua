@@ -1,5 +1,19 @@
-RegisterNetEvent('ton_tablette:changeStatut')
-AddEventHandler('ton_tablette:changeStatut', function(datas)
+
+-- *******************************************************
+-- ** Permet de faire une simple alert ESX   
+-- *******************************************************
+RegisterNetEvent('ton_tab_ems:ShowNotification')
+AddEventHandler('ton_tab_ems:ShowNotification', function(message)
+
+    ESX.ShowNotification(('~r~[EMS]~s~ %s'):format(message or ''))
+
+end)
+
+-- *******************************************************
+-- ** Permet de changer en live le status de la tablette   
+-- *******************************************************
+RegisterNetEvent('ton_tab_ems:changeStatut')
+AddEventHandler('ton_tab_ems:changeStatut', function(datas)
 
     SendNUIMessage({
         type = 'dispatch_status',
@@ -46,6 +60,7 @@ RegisterNUICallback('dispatch_get_inter', function(data, cb)
             end
         })
         oldBlipAlert = blip
+
     else
         if oldBlipAlert ~= nil then RemoveBlip(oldBlipAlert) end
     end

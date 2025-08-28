@@ -67,7 +67,7 @@ end
 -- *******************************************************
 -- ** Renvoi les voitures du player                     **
 -- *******************************************************
-ESX.RegisterServerCallback('ton_tablette:mecano_list', function(source, cb)
+ESX.RegisterServerCallback('ton_tab_ems:mecano_list', function(source, cb)
     getMecanoPlayers(function(effectifs) 
         cb(effectifs)
     end)

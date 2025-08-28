@@ -232,7 +232,7 @@ function updateScaleBar() {
 }
 
 // Permet d'avoir dynamiquement le focus sur les lignes du dispatch
-function changeStatut(id, status) {
+function changeStatut(id, status, unityName) {
     
     let classStatus = (status == 'en attente') ? 'eti-enattente' :
                           (status == 'attribué') ? 'eti-attribue' : 'eti-traite' ;
@@ -243,6 +243,7 @@ function changeStatut(id, status) {
     ligne.find(".bade-status").removeClass("eti-traite");
     ligne.find(".bade-status").text(status);
     ligne.find(".bade-status").addClass(classStatus);
+    ligne.find(".bade-unity").text(unityName);
     
 }
 
@@ -537,7 +538,7 @@ function content(config, datas, callback) {
             <tr class="fMarker ${classTrSelect}" data-id="${dt.id}">
                 <td class=""><span class="badge ${classStatus} text-dark bade-status">${dt.status}</span></td>
                 <td>${dt.description}</td>
-                <td>-</td>
+                <td class="bade-unity">-</td>
                 <td>${dt.heure_minute}</td>
                 <td class="text-center">
                 <i class="fas fa-hand-paper text-success mx-2 actionPrendre" title="Prendre l'intervention" data-id="${dt.id}" data-status="${dt.status}"></i>
@@ -672,7 +673,7 @@ window.addEventListener('message', function (event) {
     let dt = event.data; 
     switch (dt.type) {
         case "dispatch_status":
-            changeStatut(dt.values.id, dt.values.status)
+            changeStatut(dt.values.id, dt.values.status, dt.values.unity)
             break;
         default:
             break;

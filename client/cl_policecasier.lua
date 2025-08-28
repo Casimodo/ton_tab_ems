@@ -3,7 +3,7 @@
 -- *******************************************************
 RegisterNUICallback('police_casier_find', function(data, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_casier_find', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_casier_find', function(res)
         cb(res)
     end, data)
 
@@ -14,7 +14,7 @@ end)
 -- *******************************************************
 RegisterNUICallback('police_casier_get', function(id, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_casier_get', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_casier_get', function(res)
         cb(res)
     end, id)
 
@@ -25,7 +25,7 @@ end)
 -- *******************************************************
 RegisterNUICallback('police_casier_save', function(data, cb)
 
-    ESX.TriggerServerCallback('ton_tablette:police_casier_save', function(res)
+    ESX.TriggerServerCallback('ton_tab_ems:police_casier_save', function(res)
         cb(res)
     end, data)
 
