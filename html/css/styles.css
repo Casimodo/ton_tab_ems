@@ -202,6 +202,16 @@ table {
   overflow-y: auto;
 }
 
+.unite-disponible {
+  color: #17ea08 !important;
+}
+.unite-indisponible {
+  color: #b28200 !important;
+}
+.unite-off {
+  color: #878787 !important;
+}
+
 /* #map {
 	width:1126.69px;
 	height:600px;

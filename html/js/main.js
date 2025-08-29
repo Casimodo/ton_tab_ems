@@ -3,6 +3,7 @@ import * as profil from './modules/profil.js';
 import * as emsOpenInfo from './modules/ems_openInfo.js';
 import * as emsOpenDispatch from './modules/ems_openDispatch.js';
 import * as emsOpenPersonnel from './modules/ems_openPersonnel.js';
+import * as emsOpenUnite from './modules/ems_openUnite.js';
 
 let bsTooltips = [];                // instances de tooltips (BS5)
 
@@ -34,6 +35,10 @@ function home(datas) {
                 <i class="fa-solid fa-users"></i>
                 <div class="app-name">Personnel</div>
             </div>
+            <div class="app-icon icon-ambulance" id="openOpenUnite">
+                <i class="fa-solid fa-bars"></i>
+                <div class="app-name">Unitées</div>
+            </div>
             <div class="app-icon icon-ambulance" id="openDispatch">
                 <i class="fa-solid fa-person-military-to-person"></i>
                 <div class="app-name">Dispatch</div>
@@ -62,6 +67,7 @@ function home(datas) {
     emsOpenInfo.action(datas);
     emsOpenDispatch.action(datas);
     emsOpenPersonnel.action(datas, lib);
+    emsOpenUnite.action(datas, lib);
 
     // Les petits raccourcis client
     $('#openInfo').on('click', () => {
