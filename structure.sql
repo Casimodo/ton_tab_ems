@@ -29,3 +29,5 @@ INSERT INTO `ton_ems_unites` (`nom_unite`, `status`) VALUES ('Unité 3', 'indisp
 INSERT INTO `ton_ems_unites` (`nom_unite`, `status`) VALUES ('Unité 4', 'indisponible');
 INSERT INTO `ton_ems_unites` (`nom_unite`, `status`) VALUES ('Unité 5', 'indisponible');
 INSERT INTO `ton_ems_unites` (`nom_unite`, `status`) VALUES ('Unité 6', 'indisponible');
+INSERT INTO `ton_ems_unites` (`nom_unite`, `status`) VALUES ('Dragon 1', 'indisponible');
+INSERT INTO `ton_ems_unites` (`nom_unite`, `status`) VALUES ('Dragon 2', 'indisponible');

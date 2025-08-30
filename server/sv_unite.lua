@@ -50,3 +50,27 @@ fk.RegisterServerCallback('ton_tab_ems:ems_unite', function(source, cb)
 
     end)
 end)
+
+
+-- *******************************************************
+-- ** Permet de modifier l'unitée        
+-- *******************************************************
+fk.RegisterServerCallback('ton_tab_ems:ems_unite_record', function(source, cb, dt)
+    local _src = source
+
+    QUERY = "UPDATE ton_ems_unites SET status = @status, agent1_id = @agent1_id, agent2_id = @agent2_id, agent3_id = @agent3_id, agent4_id = @agent4_id WHERE id = @id;"
+    MySQL.query(QUERY, {
+        ['@status'] = dt.statut,
+        ['@agent1_id'] = dt.agent1_id,
+        ['@agent2_id'] = dt.agent2_id,
+        ['@agent3_id'] = dt.agent3_id,
+        ['@agent4_id'] = dt.agent4_id,
+        ['@id'] = dt.id
+    }, function(result)
+
+        
+        cb(true)
+
+    end)
+
+end)
